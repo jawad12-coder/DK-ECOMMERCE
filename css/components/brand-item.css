@@ -1,0 +1,35 @@
+.brands {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.brands .brand-list {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid rgba(19, 103, 239, 0.12);
+    flex-wrap: wrap;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 14px 35px rgba(15, 23, 42, 0.06);
+}
+
+.brand-list .brand-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    transform: scale(1.1);
+}
+
+.brand-list .brand-item img {
+    max-width: 140px;
+    max-height: 70px;
+    object-fit: contain;
+    opacity: 0.45;
+    transition: all 0.3s ease;
+}
+
+.brand-list .brand-item:hover img {
+    transform: scale(1.1);
+    opacity: 1;
+}
