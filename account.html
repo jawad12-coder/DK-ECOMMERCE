@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My Account — DK Gaming Zone</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<link rel="stylesheet" href="css/style.css">
+<style>
+.auth-logo{text-align:center;margin-bottom:24px}
+.auth-logo .logo{display:inline-flex;justify-content:center}
+.stat-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);text-align:center}
+.stat-card i{font-size:32px;color:var(--primary);margin-bottom:8px}
+.stat-card .num{font-size:2rem;font-weight:900;color:var(--text)}
+.stat-card .lbl{font-size:12px;color:var(--text2);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.wishlist-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.dash-panel{display:none}.dash-panel.active{display:block}
+</style>
+</head>
+<body>
+
+<div class="header-top"><div class="container"><span><i class="bi bi-telephone-fill"></i> +92 345 5222815</span><span>FREE SHIPPING on orders above Rs. 10,000</span><span><i class="bi bi-geo-alt-fill"></i> Rawalpindi</span></div></div>
+
+<header class="site-header">
+  <div class="header-main"><div class="container">
+    <a href="index.html" class="logo"><div class="logo-icon">🎮</div><div><div class="logo-text">DK <span>Gaming</span></div><div style="font-size:10px;color:var(--text2)">ZONE</div></div></a>
+    <div style="flex:1"></div>
+    <div class="header-actions">
+      <a href="account.html" class="header-action-btn" id="headerLoginBtn"><i class="bi bi-person-circle"></i><span class="action-label">Login</span></a>
+      <a href="account.html" class="header-action-btn" id="headerUserBtn" style="display:none"><i class="bi bi-person-check-fill"></i><span class="action-label">Account</span></a>
+      <a href="account.html#wishlist" class="header-action-btn"><i class="bi bi-heart"></i><span class="action-label">Wishlist</span><span class="count wishlist-count" style="display:none">0</span></a>
+      <a href="cart.html" class="header-action-btn"><i class="bi bi-cart3"></i><span class="action-label">Cart</span><span class="count cart-count" style="display:none">0</span></a>
+    </div>
+  </div></div>
+  <nav class="site-nav"><div class="container">
+    <a href="index.html" class="nav-link"><i class="bi bi-house-fill"></i> Home</a>
+    <a href="shop.html" class="nav-link"><i class="bi bi-grid-3x3-gap"></i> Shop</a>
+    <a href="cart.html" class="nav-link"><i class="bi bi-cart3"></i> Cart</a>
+    <a href="account.html" class="nav-link active"><i class="bi bi-person-circle"></i> My Account</a>
+  </div></nav>
+</header>
+
+<!-- AUTH SECTION (shown when not logged in) -->
+<div id="authSection" class="account-page" style="display:none">
+  <div class="container">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <a href="index.html" class="logo" style="display:inline-flex"><div class="logo-icon">🎮</div><div><div class="logo-text">DK <span>Gaming</span></div><div style="font-size:10px;color:var(--text2)">ZONE</div></div></a>
+        <p class="text-muted" style="margin-top:8px;font-size:14px">Sign in to your account</p>
+      </div>
+      <div class="auth-tabs">
+        <div class="auth-tab active" onclick="switchAuthTab('login')">Sign In</div>
+        <div class="auth-tab" onclick="switchAuthTab('register')">Create Account</div>
+      </div>
+
+      <!-- LOGIN -->
+      <div id="loginPane">
+        <form onsubmit="doLogin(event)">
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input class="form-control" id="loginEmail" type="email" placeholder="your@email.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <div style="position:relative">
+              <input class="form-control" id="loginPassword" type="password" placeholder="Your password" required style="padding-right:42px">
+              <button type="button" onclick="togglePass('loginPassword')" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text2);cursor:pointer"><i class="bi bi-eye" id="loginEye"></i></button>
+            </div>
+          </div>
+          <div id="loginError" class="alert alert-danger" style="display:none;margin-bottom:12px"></div>
+          <button type="submit" class="btn btn-primary btn-wide btn-lg" id="loginBtn"><i class="bi bi-box-arrow-in-right"></i> Sign In</button>
+        </form>
+        <p class="text-center text-muted" style="font-size:13px;margin-top:16px">Don't have an account? <a href="#" onclick="switchAuthTab('register')" style="color:var(--primary);font-weight:600">Create one</a></p>
+      </div>
+
+      <!-- REGISTER -->
+      <div id="registerPane" style="display:none">
+        <form onsubmit="doRegister(event)">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input class="form-control" id="regName" placeholder="Muhammad Ahmed" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input class="form-control" id="regEmail" type="email" placeholder="your@email.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input class="form-control" id="regPhone" placeholder="+92 3XX XXXXXXX">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <div style="position:relative">
+              <input class="form-control" id="regPassword" type="password" placeholder="Min 6 characters" required style="padding-right:42px">
+              <button type="button" onclick="togglePass('regPassword')" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text2);cursor:pointer"><i class="bi bi-eye" id="regEye"></i></button>
+            </div>
+          </div>
+          <div id="regError" class="alert alert-danger" style="display:none;margin-bottom:12px"></div>
+          <button type="submit" class="btn btn-primary btn-wide btn-lg" id="regBtn"><i class="bi bi-person-plus"></i> Create Account</button>
+        </form>
+        <p class="text-center text-muted" style="font-size:13px;margin-top:16px">Already have an account? <a href="#" onclick="switchAuthTab('login')" style="color:var(--primary);font-weight:600">Sign in</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD SECTION (shown when logged in) -->
+<div id="dashSection" style="display:none">
+  <div class="container">
+    <div class="dashboard-layout">
+      <!-- Sidebar nav -->
+      <aside class="dashboard-nav">
+        <div style="padding:16px;border-bottom:1px solid var(--border);margin-bottom:12px">
+          <div style="font-weight:700;font-size:15px;color:var(--text)" id="dashUserName">Welcome!</div>
+          <div style="font-size:12px;color:var(--text2)" id="dashUserEmail"></div>
+        </div>
+        <div class="dash-nav-item active" onclick="showPanel('overview')"><i class="bi bi-speedometer2"></i> Overview</div>
+        <div class="dash-nav-item" onclick="showPanel('orders')"><i class="bi bi-bag-check"></i> My Orders</div>
+        <div class="dash-nav-item" onclick="showPanel('wishlist')" id="wishlistNavItem"><i class="bi bi-heart"></i> Wishlist</div>
+        <div class="dash-nav-item" onclick="showPanel('profile')"><i class="bi bi-person-gear"></i> Edit Profile</div>
+        <div class="dash-nav-item" style="margin-top:16px;border-top:1px solid var(--border);padding-top:12px;color:var(--danger)" onclick="doLogout()"><i class="bi bi-box-arrow-right"></i> Logout</div>
+      </aside>
+
+      <!-- Main panel -->
+      <div>
+        <!-- OVERVIEW -->
+        <div class="dash-panel active" id="panel-overview">
+          <h2 style="font-size:1.4rem;font-weight:800;margin-bottom:20px;color:var(--text)">Dashboard Overview</h2>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px">
+            <div class="stat-card"><i class="bi bi-bag-check-fill"></i><div class="num" id="statOrders">0</div><div class="lbl">Total Orders</div></div>
+            <div class="stat-card"><i class="bi bi-heart-fill" style="color:var(--danger)"></i><div class="num" id="statWishlist">0</div><div class="lbl">Wishlist Items</div></div>
+            <div class="stat-card"><i class="bi bi-cash-coin" style="color:var(--success)"></i><div class="num" id="statSpent">Rs.0</div><div class="lbl">Total Spent</div></div>
+          </div>
+          <h3 style="font-size:15px;font-weight:700;margin-bottom:12px;color:var(--text)">Recent Orders</h3>
+          <div id="recentOrders"><div class="page-loader"><div class="spinner"></div></div></div>
+          <div style="margin-top:20px;display:flex;gap:12px">
+            <a href="shop.html" class="btn btn-primary"><i class="bi bi-bag-heart-fill"></i> Continue Shopping</a>
+            <button class="btn btn-outline" onclick="showPanel('orders')"><i class="bi bi-bag-check"></i> All Orders</button>
+          </div>
+        </div>
+
+        <!-- ORDERS -->
+        <div class="dash-panel" id="panel-orders">
+          <h2 style="font-size:1.4rem;font-weight:800;margin-bottom:20px;color:var(--text)">My Orders</h2>
+          <div id="ordersPanel"><div class="page-loader"><div class="spinner"></div></div></div>
+        </div>
+
+        <!-- WISHLIST -->
+        <div class="dash-panel" id="panel-wishlist">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+            <h2 style="font-size:1.4rem;font-weight:800;color:var(--text)">My Wishlist</h2>
+            <button class="btn btn-outline btn-sm" onclick="loadWishlist()"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
+          </div>
+          <div class="wishlist-grid" id="wishlistPanel"></div>
+        </div>
+
+        <!-- PROFILE -->
+        <div class="dash-panel" id="panel-profile">
+          <h2 style="font-size:1.4rem;font-weight:800;margin-bottom:20px;color:var(--text)">Edit Profile</h2>
+          <div class="card" style="max-width:500px">
+            <div class="card-body">
+              <form onsubmit="saveProfile(event)">
+                <div class="form-group"><label class="form-label">Full Name</label><input class="form-control" id="profName" placeholder="Your name"></div>
+                <div class="form-group"><label class="form-label">Phone Number</label><input class="form-control" id="profPhone" placeholder="+92 3XX XXXXXXX"></div>
+                <div class="form-group"><label class="form-label">City</label>
+                  <select class="form-control" id="profCity"><option value="">Select City</option><option>Rawalpindi</option><option>Islamabad</option><option>Lahore</option><option>Karachi</option><option>Peshawar</option><option>Multan</option><option>Faisalabad</option><option>Other</option></select>
+                </div>
+                <div class="form-group"><label class="form-label">Delivery Address</label><textarea class="form-control" id="profAddress" rows="3" placeholder="Your default delivery address"></textarea></div>
+                <div class="divider"></div>
+                <p style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px">Change Password (optional)</p>
+                <div class="form-group"><label class="form-label">Current Password</label><input class="form-control" id="profCurPw" type="password" placeholder="Enter current password"></div>
+                <div class="form-group"><label class="form-label">New Password</label><input class="form-control" id="profNewPw" type="password" placeholder="Min 6 characters"></div>
+                <button type="submit" class="btn btn-primary btn-wide"><i class="bi bi-save"></i> Save Changes</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container"><div class="footer-bottom"><span>© 2025 DK Gaming Zone. All rights reserved.</span><div class="payment-icons"><span class="payment-icon">COD</span><span class="payment-icon">EasyPaisa</span><span class="payment-icon">JazzCash</span></div></div></div>
+</footer>
+
+<script src="js/api.js"></script>
+<script>
+function switchAuthTab(tab) {
+  document.querySelectorAll('.auth-tab').forEach((t,i) => t.classList.toggle('active', (i===0&&tab==='login')||(i===1&&tab==='register')));
+  document.getElementById('loginPane').style.display = tab==='login' ? '' : 'none';
+  document.getElementById('registerPane').style.display = tab==='register' ? '' : 'none';
+}
+
+function togglePass(id) {
+  const inp = document.getElementById(id), icon = document.getElementById(id==='loginPassword'?'loginEye':'regEye');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+  icon.className = inp.type === 'password' ? 'bi bi-eye' : 'bi bi-eye-slash';
+}
+
+async function doLogin(e) {
+  e.preventDefault();
+  const btn = document.getElementById('loginBtn');
+  const errEl = document.getElementById('loginError');
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Signing in...';
+  errEl.style.display = 'none';
+  try {
+    const res = await api.post('/users/login', { email: document.getElementById('loginEmail').value, password: document.getElementById('loginPassword').value });
+    setUserToken(res.token);
+    showToast('success','Welcome back!',`Hello, ${res.user.name}!`);
+    setTimeout(() => location.reload(), 800);
+  } catch(e) { errEl.textContent = e.message; errEl.style.display = 'flex'; btn.disabled=false; btn.innerHTML='<i class="bi bi-box-arrow-in-right"></i> Sign In'; }
+}
+
+async function doRegister(e) {
+  e.preventDefault();
+  const btn = document.getElementById('regBtn');
+  const errEl = document.getElementById('regError');
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Creating account...';
+  errEl.style.display = 'none';
+  try {
+    const res = await api.post('/users/register', { name: document.getElementById('regName').value, email: document.getElementById('regEmail').value, phone: document.getElementById('regPhone').value, password: document.getElementById('regPassword').value });
+    setUserToken(res.token);
+    showToast('success','Account created!',`Welcome to DK Gaming Zone, ${res.user.name}!`);
+    setTimeout(() => location.reload(), 800);
+  } catch(e) { errEl.textContent = e.message; errEl.style.display = 'flex'; btn.disabled=false; btn.innerHTML='<i class="bi bi-person-plus"></i> Create Account'; }
+}
+
+function doLogout() {
+  setUserToken(null);
+  showToast('info','Logged out','See you soon!');
+  setTimeout(() => location.reload(), 600);
+}
+
+function showPanel(name) {
+  document.querySelectorAll('.dash-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  document.querySelectorAll('.dash-nav-item').forEach(n => n.classList.remove('active'));
+  event.currentTarget?.classList.add('active');
+  if (name === 'orders') loadOrders();
+  if (name === 'wishlist') loadWishlist();
+}
+
+async function loadDashboard() {
+  try {
+    const [meRes, ordersRes, wishRes] = await Promise.all([api.get('/users/me'), api.get('/orders/my'), api.get('/wishlist')]);
+    const user = meRes.user;
+    document.getElementById('dashUserName').textContent = user.name;
+    document.getElementById('dashUserEmail').textContent = user.email;
+    document.getElementById('profName').value = user.name || '';
+    document.getElementById('profPhone').value = user.phone || '';
+    document.getElementById('profCity').value = user.city || '';
+    document.getElementById('profAddress').value = user.address || '';
+
+    const orders = ordersRes.orders || [];
+    const wishlist = wishRes.items || [];
+    const totalSpent = orders.filter(o => o.status !== 'cancelled').reduce((s, o) => s + Number(o.total), 0);
+    document.getElementById('statOrders').textContent = orders.length;
+    document.getElementById('statWishlist').textContent = wishlist.length;
+    document.getElementById('statSpent').textContent = orders.length ? 'Rs.' + Math.round(totalSpent/1000) + 'K' : 'Rs.0';
+    updateWishlistBadge(wishlist.length);
+
+    // Recent orders
+    const recentEl = document.getElementById('recentOrders');
+    if (!orders.length) { recentEl.innerHTML = '<p class="text-muted" style="text-align:center;padding:20px">No orders yet. Start shopping!</p>'; }
+    else {
+      recentEl.innerHTML = orders.slice(0,5).map(o => `
+        <div class="order-row">
+          <div><div class="order-number">${o.order_number}</div><div style="font-size:12px;color:var(--text2)">${new Date(o.created_at).toLocaleDateString()} &bull; ${formatPrice(o.total)}</div></div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <span class="order-status status-${o.status}">${o.status}</span>
+          </div>
+        </div>`).join('');
+    }
+  } catch(e) { console.error(e); }
+}
+
+async function loadOrders() {
+  try {
+    const res = await api.get('/orders/my');
+    const orders = res.orders || [];
+    const el = document.getElementById('ordersPanel');
+    if (!orders.length) { el.innerHTML = '<div class="no-results"><i class="bi bi-bag-x"></i><h3>No Orders Yet</h3><p>Browse our store and place your first order!</p><a href="shop.html" class="btn btn-primary" style="margin-top:16px">Shop Now</a></div>'; return; }
+    el.innerHTML = orders.map(o => {
+      const items = o.items ? o.items.filter(Boolean) : [];
+      return `<div class="card" style="margin-bottom:12px">
+        <div class="card-header">
+          <div><div class="order-number">${o.order_number}</div><div style="font-size:12px;color:var(--text2)">${new Date(o.created_at).toLocaleDateString()} &bull; ${items.length} item(s)</div></div>
+          <div style="display:flex;align-items:center;gap:10px"><span style="font-weight:700">${formatPrice(o.total)}</span><span class="order-status status-${o.status}">${o.status}</span></div>
+        </div>
+        <div class="card-body" style="padding:12px 16px">
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            ${items.slice(0,3).map(i=>`<div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text2)"><img src="${i.product_image||'img/no-image.png'}" style="width:36px;height:36px;border-radius:4px;object-fit:cover" onerror="this.src='img/no-image.png'"> ${i.product_name?.substring(0,25)||'Item'}... ×${i.quantity}</div>`).join('')}
+            ${items.length > 3 ? `<span style="font-size:12px;color:var(--text2)">+${items.length-3} more</span>` : ''}
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+  } catch(e) { document.getElementById('ordersPanel').innerHTML = '<p class="text-danger">Failed to load orders</p>'; }
+}
+
+async function loadWishlist() {
+  try {
+    const res = await api.get('/wishlist');
+    const items = res.items || [];
+    updateWishlistBadge(items.length);
+    const el = document.getElementById('wishlistPanel');
+    if (!items.length) { el.innerHTML = '<div class="no-results" style="grid-column:1/-1"><i class="bi bi-heart"></i><h3>Wishlist is Empty</h3><p>Save products you love for later</p><a href="shop.html" class="btn btn-primary" style="margin-top:16px">Browse Products</a></div>'; return; }
+    el.innerHTML = items.map(item => productCardHTML(item)).join('');
+    bindProductCards(el);
+    // Add remove from wishlist binding
+    el.querySelectorAll('.wishlist-toggle-btn').forEach(btn => {
+      btn.innerHTML = '<i class="bi bi-heart-fill"></i>';
+      btn.classList.add('wishlisted');
+      btn.addEventListener('click', async () => {
+        await api.delete(`/wishlist/${btn.dataset.id}`);
+        showToast('info','Removed','Removed from wishlist');
+        loadWishlist();
+      });
+    });
+  } catch(e) { document.getElementById('wishlistPanel').innerHTML = '<p class="text-danger">Failed to load wishlist</p>'; }
+}
+
+async function saveProfile(e) {
+  e.preventDefault();
+  try {
+    const body = { name: document.getElementById('profName').value, phone: document.getElementById('profPhone').value, city: document.getElementById('profCity').value, address: document.getElementById('profAddress').value };
+    const curPw = document.getElementById('profCurPw').value;
+    const newPw = document.getElementById('profNewPw').value;
+    if (newPw) { body.password = curPw; body.newPassword = newPw; }
+    await api.put('/users/me', body);
+    showToast('success','Profile Updated','Your changes have been saved');
+    document.getElementById('profCurPw').value = '';
+    document.getElementById('profNewPw').value = '';
+  } catch(e) { showToast('error','Error',e.message); }
+}
+
+// Init page
+const user = getUser();
+if (user) {
+  document.getElementById('dashSection').style.display = '';
+  loadDashboard();
+  // Check if opened via #wishlist
+  if (location.hash === '#wishlist') setTimeout(() => showPanel('wishlist'), 500);
+} else {
+  document.getElementById('authSection').style.display = '';
+}
+</script>
+</body>
+</html>

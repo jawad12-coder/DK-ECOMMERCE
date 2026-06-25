@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="refresh" content="0; url=product.html">
+<script>
+const p = new URLSearchParams(location.search);
+const id = p.get('id') || p.get('slug');
+location.replace('product.html' + (id ? '?id=' + id : ''));
+</script>
+</head>
+<body></body>
+</html>

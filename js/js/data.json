@@ -1,0 +1,303 @@
+[
+    {
+        "id": 1,
+        "name": "RGB Gaming Headset Pro",
+        "price": {
+            "oldPrice": 45.0,
+            "newPrice": 32.0
+        },
+        "discount": 29,
+        "img": {
+            "singleImage": "img/products/product1/1.png",
+            "thumbs": [
+                "img/products/product1/1.png",
+                "img/products/product1/2.png",
+                "img/products/product1/3.png"
+            ]
+        },
+        "category": "Gaming Audio",
+        "tags": [
+            "headset",
+            "rgb",
+            "microphone"
+        ],
+        "description": "Comfortable RGB gaming headset with clear voice mic for online gaming and daily PC use.",
+        "specs": [
+            "RGB lighting",
+            "Noise-reducing mic",
+            "Soft ear cushions",
+            "PC compatible"
+        ]
+    },
+    {
+        "id": 2,
+        "name": "90 FPS RGB Gaming PC",
+        "price": {
+            "oldPrice": 799.0,
+            "newPrice": 649.0
+        },
+        "discount": 19,
+        "img": {
+            "singleImage": "img/products/product2/1.png",
+            "thumbs": [
+                "img/products/product2/1.png",
+                "img/products/product2/2.png",
+                "img/products/product2/3.png"
+            ]
+        },
+        "category": "Gaming PC",
+        "tags": [
+            "gaming-pc",
+            "90-fps",
+            "rgb-build"
+        ],
+        "description": "Ready-to-play RGB gaming PC build made for smooth esports performance and upgrade flexibility.",
+        "specs": [
+            "90 FPS target",
+            "RGB cooling",
+            "SSD storage",
+            "Upgrade ready"
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Mechanical RGB Keyboard",
+        "price": {
+            "oldPrice": 70.0,
+            "newPrice": 49.0
+        },
+        "discount": 30,
+        "img": {
+            "singleImage": "img/products/product3/1.png",
+            "thumbs": [
+                "img/products/product3/1.png",
+                "img/products/product3/2.png",
+                "img/products/product3/3.png"
+            ]
+        },
+        "category": "Keyboards",
+        "tags": [
+            "keyboard",
+            "mechanical",
+            "rgb"
+        ],
+        "description": "Mechanical RGB keyboard for fast response, strong typing feel and clean gaming desk style.",
+        "specs": [
+            "Mechanical feel",
+            "RGB backlight",
+            "Full-size layout",
+            "Durable keycaps"
+        ]
+    },
+    {
+        "id": 4,
+        "name": "RGB Gaming Mouse",
+        "price": {
+            "oldPrice": 35.0,
+            "newPrice": 24.0
+        },
+        "discount": 31,
+        "img": {
+            "singleImage": "img/products/product4/1.png",
+            "thumbs": [
+                "img/products/product4/1.png",
+                "img/products/product4/2.png",
+                "img/products/product4/3.png"
+            ]
+        },
+        "category": "Gaming Mouse",
+        "tags": [
+            "mouse",
+            "rgb",
+            "gaming-accessory"
+        ],
+        "description": "Ergonomic RGB gaming mouse with responsive tracking for everyday gaming and office use.",
+        "specs": [
+            "RGB lighting",
+            "Side buttons",
+            "Ergonomic grip",
+            "USB wired"
+        ]
+    },
+    {
+        "id": 5,
+        "name": "512GB SSD Upgrade Kit",
+        "price": {
+            "oldPrice": 55.0,
+            "newPrice": 39.0
+        },
+        "discount": 29,
+        "img": {
+            "singleImage": "img/products/product5/1.png",
+            "thumbs": [
+                "img/products/product5/1.png",
+                "img/products/product5/2.png",
+                "img/products/product5/3.png"
+            ]
+        },
+        "category": "Upgrades",
+        "tags": [
+            "ssd",
+            "upgrade",
+            "repair"
+        ],
+        "description": "512GB SSD upgrade kit for faster boot time, quicker game loading and smoother system response.",
+        "specs": [
+            "512GB capacity",
+            "Fast boot upgrade",
+            "Repair-shop ready",
+            "Includes tool kit"
+        ]
+    },
+    {
+        "id": 6,
+        "name": "Streaming Mic Kit",
+        "price": {
+            "oldPrice": 65.0,
+            "newPrice": 46.0
+        },
+        "discount": 29,
+        "img": {
+            "singleImage": "img/products/product6/1.png",
+            "thumbs": [
+                "img/products/product6/1.png",
+                "img/products/product6/2.png",
+                "img/products/product6/3.png"
+            ]
+        },
+        "category": "Microphones",
+        "tags": [
+            "mic",
+            "streaming",
+            "voice-chat"
+        ],
+        "description": "Clear voice kit for gaming calls, streaming, online classes and desktop recording setups.",
+        "specs": [
+            "Clear voice pickup",
+            "Desk setup ready",
+            "USB friendly",
+            "Gaming chat use"
+        ]
+    },
+    {
+        "id": 7,
+        "name": "Graphics Card Upgrade",
+        "price": {
+            "oldPrice": 220.0,
+            "newPrice": 179.0
+        },
+        "discount": 19,
+        "img": {
+            "singleImage": "img/products/product7/1.png",
+            "thumbs": [
+                "img/products/product7/1.png",
+                "img/products/product7/2.png",
+                "img/products/product7/3.png"
+            ]
+        },
+        "category": "Graphics Cards",
+        "tags": [
+            "gpu",
+            "graphics-card",
+            "upgrade"
+        ],
+        "description": "Upgrade option for smoother gaming visuals, better FPS and stronger creative performance.",
+        "specs": [
+            "FPS boost",
+            "Gaming upgrade",
+            "PC build ready",
+            "Service available"
+        ]
+    },
+    {
+        "id": 8,
+        "name": "Gaming Accessories Combo",
+        "price": {
+            "oldPrice": 95.0,
+            "newPrice": 69.0
+        },
+        "discount": 27,
+        "img": {
+            "singleImage": "img/products/product8/1.png",
+            "thumbs": [
+                "img/products/product8/1.png",
+                "img/products/product8/2.png",
+                "img/products/product8/3.png"
+            ]
+        },
+        "category": "Accessories",
+        "tags": [
+            "combo",
+            "keyboard",
+            "mouse",
+            "headset"
+        ],
+        "description": "Complete starter combo for a clean gaming desk with keyboard, mouse and audio accessories.",
+        "specs": [
+            "Starter bundle",
+            "RGB style",
+            "Desk ready",
+            "Value pack"
+        ]
+    },
+    {
+        "id": 9,
+        "name": "PC Cleaning & Repair Kit",
+        "price": {
+            "oldPrice": 40.0,
+            "newPrice": 28.0
+        },
+        "discount": 30,
+        "img": {
+            "singleImage": "img/products/product9/1.png",
+            "thumbs": [
+                "img/products/product9/1.png",
+                "img/products/product9/2.png",
+                "img/products/product9/3.png"
+            ]
+        },
+        "category": "Repair Tools",
+        "tags": [
+            "repair",
+            "cleaning",
+            "tools"
+        ],
+        "description": "Useful repair and cleaning set for basic PC maintenance, dust cleanup and service desk work.",
+        "specs": [
+            "Cleaning tools",
+            "Repair support",
+            "PC maintenance",
+            "Quick service"
+        ]
+    },
+    {
+        "id": 10,
+        "name": "Laptop SSD Upgrade Service",
+        "price": {
+            "oldPrice": 75.0,
+            "newPrice": 58.0
+        },
+        "discount": 23,
+        "img": {
+            "singleImage": "img/products/product10/1.png",
+            "thumbs": [
+                "img/products/product10/1.png",
+                "img/products/product10/2.png",
+                "img/products/product10/3.png"
+            ]
+        },
+        "category": "Upgrade Service",
+        "tags": [
+            "laptop",
+            "ssd",
+            "service"
+        ],
+        "description": "Laptop SSD upgrade service for faster startup, faster app loading and smoother daily use.",
+        "specs": [
+            "SSD install",
+            "Data guidance",
+            "Laptop service",
+            "Fast boot"
+        ]
+    }
+]

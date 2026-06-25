@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cart & Checkout — DK Gaming Zone</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<link rel="stylesheet" href="css/style.css">
+<style>
+.checkout-steps{display:flex;gap:0;margin-bottom:32px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.step{flex:1;padding:14px 12px;text-align:center;font-size:13px;font-weight:600;color:var(--text2);display:flex;align-items:center;justify-content:center;gap:8px;position:relative;border-right:1px solid var(--border)}
+.step:last-child{border-right:none}
+.step.active{background:linear-gradient(135deg,rgba(108,99,255,.15),rgba(0,212,255,.05));color:var(--primary)}
+.step.done{color:var(--success)}
+.step-num{width:24px;height:24px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.step.active .step-num{background:var(--primary);color:#fff}
+.step.done .step-num{background:var(--success);color:#fff}
+.bank-details{background:var(--card2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin-top:10px;font-size:13px}
+.bank-details div{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border)}
+.bank-details div:last-child{border-bottom:none}
+.bank-details strong{color:var(--text)}
+.order-success{text-align:center;padding:60px 20px}
+.order-success-icon{width:80px;height:80px;background:rgba(16,185,129,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:40px;color:var(--success)}
+.summary-divider{border-top:2px solid var(--border);margin:12px 0;padding-top:12px}
+</style>
+</head>
+<body>
+
+<div class="header-top"><div class="container"><span><i class="bi bi-telephone-fill"></i> +92 345 5222815</span><span>FREE SHIPPING on orders above Rs. 10,000</span><span><i class="bi bi-shield-check"></i> Secure Checkout</span></div></div>
+
+<header class="site-header">
+  <div class="header-main"><div class="container">
+    <a href="index.html" class="logo"><div class="logo-icon">🎮</div><div><div class="logo-text">DK <span>Gaming</span></div><div style="font-size:10px;color:var(--text2)">ZONE</div></div></a>
+    <div style="flex:1"></div>
+    <div class="header-actions">
+      <a href="account.html" class="header-action-btn" id="headerLoginBtn"><i class="bi bi-person-circle"></i><span class="action-label">Login</span></a>
+      <a href="account.html" class="header-action-btn" id="headerUserBtn" style="display:none"><i class="bi bi-person-check-fill"></i><span class="action-label">Account</span></a>
+      <a href="account.html#wishlist" class="header-action-btn"><i class="bi bi-heart"></i><span class="action-label">Wishlist</span><span class="count wishlist-count" style="display:none">0</span></a>
+      <a href="cart.html" class="header-action-btn"><i class="bi bi-cart3"></i><span class="action-label">Cart</span><span class="count cart-count" style="display:none">0</span></a>
+    </div>
+  </div></div>
+</header>
+
+<div class="container">
+  <div class="breadcrumb" style="padding-top:20px">
+    <a href="index.html">Home</a><i class="bi bi-chevron-right"></i>
+    <a href="shop.html">Shop</a><i class="bi bi-chevron-right"></i>
+    <span id="pageTitle">Shopping Cart</span>
+  </div>
+
+  <!-- Steps -->
+  <div class="checkout-steps" id="checkoutSteps">
+    <div class="step active" id="step1"><span class="step-num">1</span> Cart</div>
+    <div class="step" id="step2"><span class="step-num">2</span> Details</div>
+    <div class="step" id="step3"><span class="step-num">3</span> Payment</div>
+    <div class="step" id="step4"><span class="step-num">4</span> Confirm</div>
+  </div>
+
+  <!-- STEP 1: CART -->
+  <div id="cartView">
+    <div id="cartLoader" class="page-loader"><div class="spinner"></div><span>Loading cart...</span></div>
+    <div id="cartEmpty" class="cart-empty" style="display:none">
+      <i class="bi bi-cart-x"></i>
+      <h3>Your cart is empty</h3>
+      <p class="text-muted" style="margin-bottom:24px">Add some awesome gaming gear to your cart!</p>
+      <a href="shop.html" class="btn btn-primary btn-lg"><i class="bi bi-bag-heart-fill"></i> Continue Shopping</a>
+    </div>
+    <div id="cartContent" style="display:none">
+      <div class="cart-layout">
+        <div>
+          <div class="flex items-center justify-between mb-2" style="margin-bottom:12px">
+            <h2 style="font-size:18px;font-weight:800">Your Cart (<span id="cartCount">0</span> items)</h2>
+            <button class="btn btn-ghost btn-sm" onclick="clearCart()"><i class="bi bi-trash"></i> Clear Cart</button>
+          </div>
+          <div id="cartItems"></div>
+          <div style="display:flex;gap:12px;margin-top:16px">
+            <a href="shop.html" class="btn btn-outline"><i class="bi bi-arrow-left"></i> Continue Shopping</a>
+            <button class="btn btn-primary" onclick="goToStep(2)">Proceed to Checkout <i class="bi bi-arrow-right"></i></button>
+          </div>
+        </div>
+        <div>
+          <div class="order-summary">
+            <h3 style="font-size:16px;font-weight:800;margin-bottom:16px">Order Summary</h3>
+            <div class="summary-row"><span>Subtotal</span><span id="sumSubtotal">Rs. 0</span></div>
+            <div class="summary-row"><span>Shipping</span><span id="sumShipping">Calculated at checkout</span></div>
+            <div class="summary-row"><span>Tax (17% GST)</span><span id="sumTax">Rs. 0</span></div>
+            <div class="summary-row" id="couponRow" style="display:none;color:var(--success)"><span><i class="bi bi-tag-fill"></i> Coupon</span><span id="sumCoupon">-Rs. 0</span></div>
+            <div class="summary-divider"></div>
+            <div class="summary-row" style="font-size:18px;font-weight:800;border-bottom:none;padding:0"><span>Total</span><span class="summary-total" id="sumTotal">Rs. 0</span></div>
+            <div class="coupon-row">
+              <input class="form-control" id="couponCode" placeholder="Coupon code (e.g. WELCOME10)">
+              <button class="btn btn-outline" onclick="applyCoupon()"><i class="bi bi-tag"></i> Apply</button>
+            </div>
+            <div id="couponMsg" style="font-size:12px;margin-top:4px"></div>
+            <button class="btn btn-primary btn-wide" style="margin-top:16px" onclick="goToStep(2)"><i class="bi bi-lock-fill"></i> Secure Checkout</button>
+            <div style="display:flex;justify-content:center;gap:8px;margin-top:12px;opacity:.6">
+              <i class="bi bi-shield-lock-fill" style="color:var(--success)"></i>
+              <span style="font-size:11px;color:var(--text2)">SSL Secured | Safe & Encrypted</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2: CUSTOMER DETAILS -->
+  <div id="detailsView" style="display:none">
+    <div class="cart-layout">
+      <div>
+        <div class="checkout-section">
+          <h3><i class="bi bi-person-fill"></i> Customer Details</h3>
+          <div class="grid-2">
+            <div class="form-group"><label class="form-label">Full Name *</label><input class="form-control" id="custName" placeholder="Muhammad Ahmed" required></div>
+            <div class="form-group"><label class="form-label">Phone Number *</label><input class="form-control" id="custPhone" placeholder="+92 3XX XXXXXXX" required></div>
+          </div>
+          <div class="form-group"><label class="form-label">Email Address</label><input class="form-control" id="custEmail" type="email" placeholder="email@example.com"></div>
+          <div class="form-group"><label class="form-label">Delivery Address *</label><textarea class="form-control" id="custAddress" placeholder="House No, Street No, Area..." rows="3" required></textarea></div>
+          <div class="form-group"><label class="form-label">City *</label>
+            <select class="form-control" id="custCity" required>
+              <option value="">Select City</option>
+              <option>Rawalpindi</option><option>Islamabad</option><option>Lahore</option><option>Karachi</option><option>Peshawar</option><option>Multan</option><option>Faisalabad</option><option>Gujranwala</option><option>Sialkot</option><option>Other</option>
+            </select>
+          </div>
+          <div class="form-group"><label class="form-label">Order Notes (Optional)</label><textarea class="form-control" id="orderNotes" placeholder="Any special instructions for delivery..." rows="2"></textarea></div>
+        </div>
+        <div style="display:flex;gap:12px">
+          <button class="btn btn-outline" onclick="goToStep(1)"><i class="bi bi-arrow-left"></i> Back to Cart</button>
+          <button class="btn btn-primary" onclick="validateDetails()">Continue to Payment <i class="bi bi-arrow-right"></i></button>
+        </div>
+      </div>
+      <div><div class="order-summary" id="summary2"></div></div>
+    </div>
+  </div>
+
+  <!-- STEP 3: PAYMENT -->
+  <div id="paymentView" style="display:none">
+    <div class="cart-layout">
+      <div>
+        <div class="checkout-section">
+          <h3><i class="bi bi-credit-card-fill"></i> Select Payment Method</h3>
+          <div class="payment-options" id="paymentOptions">
+            <label class="payment-option selected" data-method="cod">
+              <input type="radio" name="payment" value="cod" checked>
+              <i class="bi bi-cash-coin"></i>
+              <div class="payment-option-info"><strong>Cash on Delivery</strong><span>Pay when delivered</span></div>
+            </label>
+            <label class="payment-option" data-method="easypaisa">
+              <input type="radio" name="payment" value="easypaisa">
+              <i class="bi bi-phone-fill" style="color:#6cc04a"></i>
+              <div class="payment-option-info"><strong>EasyPaisa</strong><span>Mobile wallet</span></div>
+            </label>
+            <label class="payment-option" data-method="jazzcash">
+              <input type="radio" name="payment" value="jazzcash">
+              <i class="bi bi-phone-fill" style="color:#e8002d"></i>
+              <div class="payment-option-info"><strong>JazzCash</strong><span>Mobile wallet</span></div>
+            </label>
+            <label class="payment-option" data-method="bankTransfer">
+              <input type="radio" name="payment" value="bankTransfer">
+              <i class="bi bi-bank2" style="color:#00d4ff"></i>
+              <div class="payment-option-info"><strong>Bank Transfer</strong><span>Meezan Bank</span></div>
+            </label>
+          </div>
+          <div id="paymentDetails" style="margin-top:16px"></div>
+        </div>
+        <div style="background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.2);border-radius:var(--radius-sm);padding:14px;margin-bottom:16px;font-size:13px">
+          <i class="bi bi-shield-check" style="color:var(--success)"></i> Your order information is secured with 256-bit SSL encryption.
+        </div>
+        <div style="display:flex;gap:12px">
+          <button class="btn btn-outline" onclick="goToStep(2)"><i class="bi bi-arrow-left"></i> Back</button>
+          <button class="btn btn-primary" onclick="placeOrder()" id="placeOrderBtn"><i class="bi bi-bag-check-fill"></i> Place Order</button>
+        </div>
+      </div>
+      <div><div class="order-summary" id="summary3"></div></div>
+    </div>
+  </div>
+
+  <!-- STEP 4: SUCCESS -->
+  <div id="successView" style="display:none">
+    <div style="max-width:600px;margin:0 auto">
+      <div class="order-success">
+        <div class="order-success-icon"><i class="bi bi-check-lg"></i></div>
+        <h2 style="font-size:2rem;font-weight:900;margin-bottom:8px">Order Placed! 🎉</h2>
+        <p class="text-muted" style="margin-bottom:8px">Order Number: <strong id="orderNum" style="color:var(--accent)"></strong></p>
+        <p class="text-muted" style="margin-bottom:24px">Thank you for your order! We will contact you shortly to confirm delivery.</p>
+        <div class="card" style="text-align:left;margin-bottom:24px">
+          <div class="card-header"><span>Order Summary</span></div>
+          <div class="card-body" id="successSummary"></div>
+        </div>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+          <a href="index.html" class="btn btn-primary btn-lg"><i class="bi bi-house-fill"></i> Continue Shopping</a>
+          <a href="https://wa.me/923455222815" class="btn btn-outline btn-lg" target="_blank"><i class="bi bi-whatsapp"></i> Contact Support</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer" style="margin-top:40px">
+  <div class="container"><div class="footer-bottom"><span>© 2025 DK Gaming Zone. All rights reserved.</span><div class="payment-icons"><span class="payment-icon">COD</span><span class="payment-icon">EasyPaisa</span><span class="payment-icon">JazzCash</span><span class="payment-icon">Bank</span></div></div></div>
+</footer>
+
+<script src="js/api.js"></script>
+<script>
+let cartItems = [], cartId = null, couponData = null, storeSettings = {};
+const PAYMENT_INFO = {
+  easypaisa: '<div class="bank-details"><div><span>Account</span><strong>+92 345 5222815</strong></div><div><span>Name</span><strong>DK Gaming Zone</strong></div><div><span>Note</span><strong>Send screenshot to WhatsApp after payment</strong></div></div>',
+  jazzcash: '<div class="bank-details"><div><span>Mobile</span><strong>+92 345 5222815</strong></div><div><span>Name</span><strong>DK Gaming Zone</strong></div><div><span>Note</span><strong>Send screenshot to WhatsApp after payment</strong></div></div>',
+  bankTransfer: '<div class="bank-details"><div><span>Bank</span><strong>Meezan Bank</strong></div><div><span>Account</span><strong>01234567890123</strong></div><div><span>Title</span><strong>DK Gaming Zone</strong></div><div><span>IBAN</span><strong>PK00MEZN0001234567890123</strong></div><div><span>Note</span><strong>Send payment screenshot to WhatsApp</strong></div></div>',
+};
+
+function goToStep(n) {
+  if (n === 2 && !cartItems.length) { showToast('warn','Empty Cart','Please add items to cart first'); return; }
+  [1,2,3,4].forEach(i => {
+    document.getElementById(`step${i}`).className = 'step' + (i < n ? ' done' : i === n ? ' active' : '');
+    const stepNum = document.getElementById(`step${i}`).querySelector('.step-num');
+    if (i < n) stepNum.innerHTML = '<i class="bi bi-check"></i>';
+    else stepNum.textContent = i;
+  });
+  document.getElementById('cartView').style.display = n === 1 ? '' : 'none';
+  document.getElementById('detailsView').style.display = n === 2 ? '' : 'none';
+  document.getElementById('paymentView').style.display = n === 3 ? '' : 'none';
+  document.getElementById('successView').style.display = n === 4 ? '' : 'none';
+  document.getElementById('pageTitle').textContent = ['Cart', 'Details', 'Payment', 'Confirmed'][n-1];
+  if (n === 2) renderMiniSummary('summary2');
+  if (n === 3) renderMiniSummary('summary3');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function calcTotals() {
+  const subtotal = cartItems.reduce((s,i) => s + Number(i.new_price) * i.quantity, 0);
+  const couponDiscount = couponData ? (couponData.discount_type === 'percentage' ? Math.round(subtotal * couponData.discount_value / 100) : Math.min(couponData.discount_value, subtotal)) : 0;
+  const taxable = Math.max(0, subtotal - couponDiscount);
+  const tax = Math.round(taxable * (Number(storeSettings.taxRate || 17) / 100));
+  const freeShipMin = Number(storeSettings.freeShippingMin || 10000);
+  const shipping = taxable >= freeShipMin ? 0 : Number(storeSettings.localShippingFee || 250);
+  const total = taxable + shipping + tax;
+  return { subtotal, couponDiscount, tax, shipping, total };
+}
+
+function renderSummary(totals) {
+  const { subtotal, couponDiscount, tax, shipping, total } = totals;
+  document.getElementById('sumSubtotal').textContent = formatPrice(subtotal);
+  document.getElementById('sumShipping').textContent = shipping === 0 ? '🎉 FREE' : formatPrice(shipping);
+  document.getElementById('sumTax').textContent = formatPrice(tax);
+  document.getElementById('sumTotal').textContent = formatPrice(total);
+  if (couponDiscount > 0) { document.getElementById('couponRow').style.display = 'flex'; document.getElementById('sumCoupon').textContent = `-${formatPrice(couponDiscount)}`; }
+  else { document.getElementById('couponRow').style.display = 'none'; }
+}
+
+function renderMiniSummary(elId) {
+  const totals = calcTotals();
+  document.getElementById(elId).innerHTML = `
+    <h3 style="font-size:15px;font-weight:800;margin-bottom:16px">Order Summary</h3>
+    ${cartItems.map(i=>`<div style="display:flex;gap:8px;align-items:center;margin-bottom:10px"><img src="${i.primary_image||i.single_image||'img/no-image.png'}" style="width:44px;height:44px;border-radius:6px;object-fit:cover"><div style="flex:1;font-size:13px"><div style="font-weight:600">${i.name.substring(0,30)}${i.name.length>30?'...':''}</div><div style="color:var(--text2)">Qty: ${i.quantity}</div></div><div style="font-weight:700;font-size:13px">${formatPrice(Number(i.new_price)*i.quantity)}</div></div>`).join('')}
+    <div class="summary-divider"></div>
+    <div class="summary-row"><span>Subtotal</span><span>${formatPrice(totals.subtotal)}</span></div>
+    ${couponData ? `<div class="summary-row" style="color:var(--success)"><span>Coupon</span><span>-${formatPrice(totals.couponDiscount)}</span></div>` : ''}
+    <div class="summary-row"><span>Shipping</span><span>${totals.shipping === 0 ? 'FREE' : formatPrice(totals.shipping)}</span></div>
+    <div class="summary-row"><span>Tax (17% GST)</span><span>${formatPrice(totals.tax)}</span></div>
+    <div class="summary-divider"></div>
+    <div class="summary-row" style="font-size:18px;font-weight:800;border-bottom:none;padding:0"><span>Total</span><span class="summary-total">${formatPrice(totals.total)}</span></div>`;
+}
+
+async function loadCart() {
+  try {
+    const [cartRes, settRes] = await Promise.all([api.get('/cart'), api.get('/settings')]);
+    cartItems = cartRes.items || [];
+    cartId = cartRes.cartId;
+    storeSettings = settRes.settings?.store || {};
+    document.getElementById('cartLoader').style.display = 'none';
+    if (!cartItems.length) { document.getElementById('cartEmpty').style.display = 'block'; return; }
+    document.getElementById('cartContent').style.display = 'block';
+    renderCart();
+  } catch(e) { document.getElementById('cartLoader').innerHTML = `<p class="text-danger">Failed to load cart</p>`; }
+}
+
+function renderCart() {
+  document.getElementById('cartCount').textContent = cartItems.reduce((s,i) => s+i.quantity, 0);
+  document.getElementById('cartItems').innerHTML = cartItems.map(item => `
+    <div class="cart-item" data-item-id="${item.id}">
+      <div class="cart-item-img"><a href="product.html?id=${item.product_id}"><img src="${item.primary_image||item.single_image||'img/no-image.png'}" alt="${item.name}" onerror="this.src='img/no-image.png'"></a></div>
+      <div>
+        <a href="product.html?id=${item.product_id}" class="cart-item-name">${item.name}</a>
+        <div class="cart-item-brand">${formatPrice(item.new_price)} each</div>
+        <div class="qty-selector" style="margin-top:8px">
+          <button class="qty-btn" onclick="updateQty(${item.id}, ${item.quantity - 1})"><i class="bi bi-dash"></i></button>
+          <input class="qty-input" type="number" value="${item.quantity}" min="1" max="${item.stock}" onchange="updateQty(${item.id}, this.value)">
+          <button class="qty-btn" onclick="updateQty(${item.id}, ${item.quantity + 1})"><i class="bi bi-plus"></i></button>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div class="cart-item-price">${formatPrice(Number(item.new_price) * item.quantity)}</div>
+        ${item.discount > 0 ? `<div style="font-size:11px;color:var(--success);margin-bottom:4px">Save ${formatPrice((item.old_price - item.new_price) * item.quantity)}</div>` : ''}
+        <button class="cart-item-remove" onclick="removeItem(${item.id})"><i class="bi bi-x-lg"></i></button>
+      </div>
+    </div>`).join('');
+  renderSummary(calcTotals());
+  updateCartBadge(cartItems.reduce((s,i) => s+i.quantity, 0));
+}
+
+async function updateQty(itemId, qty) {
+  qty = Number(qty);
+  if (qty <= 0) { removeItem(itemId); return; }
+  try {
+    const res = await api.put(`/cart/items/${itemId}`, { quantity: qty });
+    cartItems = res.items;
+    renderCart();
+  } catch(e) { showToast('error','Error',e.message); }
+}
+
+async function removeItem(itemId) {
+  try {
+    const res = await api.delete(`/cart/items/${itemId}`);
+    cartItems = res.items;
+    if (!cartItems.length) { document.getElementById('cartContent').style.display='none'; document.getElementById('cartEmpty').style.display='block'; }
+    else { renderCart(); }
+    showToast('info','Removed','Item removed from cart');
+  } catch(e) { showToast('error','Error',e.message); }
+}
+
+async function clearCart() {
+  if (!confirm('Clear all items from cart?')) return;
+  try { await api.delete('/cart'); cartItems = []; document.getElementById('cartContent').style.display='none'; document.getElementById('cartEmpty').style.display='block'; updateCartBadge(0); }
+  catch(e) { showToast('error','Error',e.message); }
+}
+
+async function applyCoupon() {
+  const code = document.getElementById('couponCode').value.trim();
+  if (!code) return;
+  const totals = calcTotals();
+  try {
+    const res = await api.post('/coupons/apply', { code, order_amount: totals.subtotal });
+    couponData = res.coupon;
+    showToast('success','Coupon Applied!',`You save ${formatPrice(res.discount)}`);
+    document.getElementById('couponMsg').innerHTML = `<span style="color:var(--success)"><i class="bi bi-check-circle"></i> ${res.coupon.description || 'Discount applied!'}</span>`;
+    renderSummary(calcTotals());
+  } catch(e) { couponData = null; document.getElementById('couponMsg').innerHTML = `<span style="color:var(--danger)"><i class="bi bi-x-circle"></i> ${e.message}</span>`; }
+}
+
+function validateDetails() {
+  const name = document.getElementById('custName').value.trim();
+  const phone = document.getElementById('custPhone').value.trim();
+  const address = document.getElementById('custAddress').value.trim();
+  const city = document.getElementById('custCity').value;
+  if (!name) { showToast('warn','Required','Please enter your full name'); return; }
+  if (!phone || phone.length < 10) { showToast('warn','Required','Please enter a valid phone number'); return; }
+  if (!address) { showToast('warn','Required','Please enter your delivery address'); return; }
+  if (!city) { showToast('warn','Required','Please select your city'); return; }
+  goToStep(3);
+}
+
+// Payment method selection
+document.querySelectorAll('.payment-option').forEach(opt => {
+  opt.addEventListener('click', () => {
+    document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('selected'));
+    opt.classList.add('selected');
+    const method = opt.dataset.method;
+    document.getElementById('paymentDetails').innerHTML = PAYMENT_INFO[method] || '';
+  });
+});
+
+async function placeOrder() {
+  const btn = document.getElementById('placeOrderBtn');
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Placing Order...';
+  const paymentMethod = document.querySelector('input[name="payment"]:checked')?.value || 'cod';
+  const customer = {
+    name: document.getElementById('custName').value.trim(),
+    phone: document.getElementById('custPhone').value.trim(),
+    email: document.getElementById('custEmail').value.trim(),
+    address: document.getElementById('custAddress').value.trim(),
+    city: document.getElementById('custCity').value
+  };
+  const items = cartItems.map(i => ({ id: i.product_id, name: i.name, quantity: i.quantity, price: { newPrice: Number(i.new_price) } }));
+  const notes = document.getElementById('orderNotes')?.value || '';
+  try {
+    const res = await api.post('/orders', { customer, items, paymentMethod, coupon_code: couponData ? document.getElementById('couponCode').value.trim() : null, notes });
+    // Show success
+    document.getElementById('orderNum').textContent = res.order.orderNumber;
+    const totals = calcTotals();
+    document.getElementById('successSummary').innerHTML = `
+      <div class="summary-row"><span>Items (${cartItems.length})</span><span>${formatPrice(res.order.subtotal || totals.subtotal)}</span></div>
+      ${couponData ? `<div class="summary-row" style="color:var(--success)"><span>Coupon Discount</span><span>-${formatPrice(res.order.couponDiscount || totals.couponDiscount)}</span></div>` : ''}
+      <div class="summary-row"><span>Shipping</span><span>${res.order.shipping === 0 ? 'FREE' : formatPrice(res.order.shipping || totals.shipping)}</span></div>
+      <div class="summary-row"><span>Tax (17% GST)</span><span>${formatPrice(res.order.tax || totals.tax)}</span></div>
+      <div class="summary-divider"></div>
+      <div class="summary-row" style="font-size:18px;font-weight:800;border-bottom:none;padding:0"><span>Total Paid</span><span style="color:var(--success)">${formatPrice(res.order.total || totals.total)}</span></div>
+      <div style="margin-top:12px;font-size:13px;color:var(--text2)">Payment: <strong>${paymentMethod.toUpperCase()}</strong> | We'll call you at <strong>${customer.phone}</strong> for delivery confirmation.</div>`;
+    goToStep(4);
+    cartItems = []; updateCartBadge(0);
+  } catch(e) { showToast('error','Order Failed',e.message); btn.disabled=false; btn.innerHTML='<i class="bi bi-bag-check-fill"></i> Place Order'; }
+}
+
+loadCart();
+</script>
+</body>
+</html>

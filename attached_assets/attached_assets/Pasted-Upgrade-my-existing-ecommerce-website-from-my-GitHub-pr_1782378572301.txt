@@ -1,0 +1,229 @@
+Upgrade my existing ecommerce website from my GitHub project. Do not rebuild it from scratch unless a file is missing or broken. Keep my current structure, pages, branding, category schedule, and existing HTML/CSS/JavaScript code. Improve and complete it professionally.
+
+Important rules:
+- Use only HTML, CSS, and vanilla JavaScript.
+- Do not use React, Vue, Angular, Next.js, Node backend, PHP, Python, or any framework.
+- Do not use Replit Database.
+- Do not use external APIs.
+- Do not scrape copyrighted product data or copyrighted images.
+- Keep the website controlled by my local project files.
+- Use local data files such as `products.js` or `products.json`.
+- Use localStorage or IndexedDB only for cart, wishlist, compare, admin demo edits, and demo orders.
+- Make the project work from normal static files.
+
+Main goal:
+Upgrade my current PC hardware ecommerce website into a complete, modern, responsive, advanced ecommerce store with a professional admin panel, beautiful GUI, product pages, category pages, cart, checkout demo, wishlist, compare, animations, and clean code.
+
+Product categories:
+Core PC Components:
+- CPU / Processors
+- GPU / Graphics Cards
+- Motherboards
+- RAM / Memory
+- SSDs and HDDs / Storage
+- Power Supply Units / PSUs
+- CPU Coolers / Air and Liquid
+- PC Cases
+
+Peripherals:
+- Keyboards
+- Mice
+- Headsets
+- Speakers
+- Webcams
+- Microphones
+- Mousepads
+
+Displays:
+- Gaming Monitors
+- Office Monitors
+- Monitor Arms and Stands
+
+Networking:
+- Wi-Fi Routers
+- Network Switches
+- Wi-Fi Adapters
+- LAN Cables
+
+Laptop Accessories:
+- Laptop Cooling Pads
+- Laptop Bags
+- Chargers
+- USB Hubs
+
+Gaming Accessories:
+- Gaming Controllers
+- RGB Lighting Kits
+- Gaming Chairs
+
+Cables and Adapters:
+- HDMI Cables
+- DisplayPort Cables
+- USB Cables
+- USB-to-HDMI Adapters
+- Power Cables
+
+Quick categories:
+- Keyboards
+- Mice
+- Headsets
+- SSDs
+- RAM
+- Gaming Controllers
+- HDMI and USB Cables
+
+Required pages:
+- Home page
+- Shop page
+- Category pages or category filtering
+- Product details page
+- Cart page
+- Checkout demo page
+- Wishlist page
+- Compare page
+- Admin panel page
+- About page
+- Contact page
+- FAQ page
+- Privacy/terms page
+
+Product data requirements:
+Create or improve demo product data for every category. Each product must include:
+- Product name
+- Category
+- Subcategory
+- Brand
+- Price
+- Discount price
+- Stock quantity
+- Rating
+- Review count
+- Short description
+- Full description
+- Specifications table
+- Images
+- SKU
+- Warranty
+- Tags
+- Availability
+- Related product IDs
+
+Image rules:
+Use copyright-free images only. Use Unsplash, Pexels, Pixabay, Wikimedia Commons where allowed, or generated placeholder product images. Do not use copyrighted brand images without permission. If exact real product images are not safe, use realistic generic product images with no logos and no text.
+
+Design requirements:
+Make the site look premium, modern, clean, and professional for a PC hardware and gaming ecommerce store. Improve spacing, typography, colors, buttons, product cards, filters, header, footer, mobile layout, and overall GUI.
+
+Include:
+- Sticky header
+- Search bar
+- Category menu or mega menu
+- Cart icon with count
+- Wishlist icon
+- Product badges: Sale, New, Hot, Out of Stock
+- Product filters
+- Sorting
+- Price filter
+- Brand filter
+- Rating filter
+- Grid/list toggle
+- Quick view modal
+- Toast notifications
+- Loading skeletons
+- Mobile drawer menu
+- Responsive footer
+- Smooth hover effects
+- Smooth animations
+
+Product details page:
+Each product detail page must include:
+- Image gallery
+- Main image preview
+- Zoom hover effect
+- Product title
+- Price and discount
+- Rating
+- Stock status
+- Quantity selector
+- Add to cart
+- Add to wishlist
+- Compare button
+- Description tab
+- Specifications tab
+- Reviews tab
+- Related products
+- Recently viewed products
+
+Admin panel:
+Create or upgrade a complete admin panel using only HTML, CSS, and vanilla JavaScript.
+
+Admin must be able to:
+- View dashboard stats
+- View total products
+- View total orders
+- View demo revenue
+- View low-stock products
+- Add product
+- Edit product
+- Delete product
+- Change product images with file input preview
+- Edit name, category, subcategory, price, stock, description, specs, tags, SKU, warranty, availability
+- Manage categories
+- Manage demo orders
+- Search products
+- Filter products
+- Save changes in localStorage or IndexedDB
+- Reset demo data
+- Use a clean responsive admin GUI
+
+Cart and checkout:
+Implement:
+- Add to cart
+- Remove from cart
+- Increase/decrease quantity
+- Cart subtotal
+- Discount
+- Shipping
+- Grand total
+- Coupon code demo
+- Checkout form
+- Demo order placement
+- Save demo orders in localStorage or IndexedDB
+
+Responsiveness:
+The full website must work perfectly on:
+- Mobile
+- Tablet
+- Laptop
+- Desktop
+- Large screens
+
+No text overflow. No broken cards. No overlapping buttons. Tables in admin must be responsive.
+
+Code quality:
+- Keep existing files where possible.
+- Improve current code instead of deleting everything.
+- Organize CSS and JavaScript clearly.
+- Use reusable functions.
+- Do not duplicate large blocks unnecessarily.
+- Add comments only where helpful.
+- Make sure all links, buttons, filters, forms, modals, cart actions, and admin actions work.
+
+Testing:
+After upgrading, check:
+- Home page layout
+- Shop filters
+- Product detail page
+- Cart
+- Checkout demo
+- Wishlist
+- Compare
+- Admin add/edit/delete product
+- Mobile responsive layout
+- Browser console has no errors
+
+Important limitation:
+Because this is only HTML, CSS, and JavaScript with no backend and no API, do not promise real-time live prices, real payment processing, or real secure admin authentication. Use editable demo product data and browser storage. Make it easy for me to later connect a real backend/database if needed.
+
+Final instruction:
+Upgrade the existing GitHub project carefully, keep my control over the files, include all categories, make the UI beautiful and advanced, and do not use any framework, API, Replit database, or backend.

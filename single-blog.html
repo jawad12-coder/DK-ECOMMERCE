@@ -1,0 +1,484 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- !bootstrap icon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <title>DK Gaming Zone | Tech Blog</title>
+</head>
+
+<body>
+    <!-- ! header start -->
+    <header>
+        <div class="global-notification">
+            <div class="container">
+                <p>
+                    DK GAMING DEALS - SAVE UP TO 50%! <a href="shop.html">SHOP NOW</a>
+                </p>
+            </div>
+        </div>
+        <div class="header-row">
+            <div class="container">
+                <div class="header-wrapper">
+                    <div class="header-mobile">
+                        <i class="bi bi-list" id="btn-menu"></i>
+                    </div>
+                    <div class="header-left">
+                        <a href="/" class="logo">DK Gaming Zone</a>
+                    </div>
+                    <div class="header-center" id="sidebar">
+                        <nav class="navigation">
+                            <ul class="menu-list">
+                                <li class="menu-list-item">
+                                    <a href="/" class="menu-link">Home
+                                        <i class="bi bi-chevron-down"></i>
+                                    </a>
+                                    <div class="menu-dropdown-wrapper">
+                                        <ul class="menu-dropdown-content">
+                                            <li><a href="index.html#product-list">Featured Gear</a></li>
+                                            <li><a href="index.html#product-list-2">New Arrivals</a></li>
+                                            <li><a href="shop.html">Gaming Shop</a></li>
+                                            <li><a href="contact.html">Repair Support</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="menu-list-item megamenu-wrapper">
+                                    <a href="shop.html" class="menu-link">Shop
+                                        <i class="bi bi-chevron-down"></i>
+                                    </a>
+                                    <div class="menu-dropdown-wrapper">
+                                        <div class="menu-dropdown-megamenu">
+                                            <div class="megamenu-links">
+                                                <div class="megamenu-products">
+                                                    <h3 class="megamenu-product-title">Gaming Gear</h3>
+                                                    <ul class="megamenu-menu-list">
+                                                        <li><a href="shop.html">Gaming PCs</a></li>
+                                                        <li><a href="shop.html">RGB Headsets</a></li>
+                                                        <li><a href="shop.html">Keyboards</a></li>
+                                                        <li><a href="shop.html">Gaming Mice</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="megamenu-products">
+                                                    <h3 class="megamenu-product-title">PC Services</h3>
+                                                    <ul class="megamenu-menu-list">
+                                                        <li><a href="contact.html">Computer Repair</a></li>
+                                                        <li><a href="shop.html">SSD Upgrades</a></li>
+                                                        <li><a href="shop.html">PC Components</a></li>
+                                                        <li><a href="contact.html">Visit Store</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="megamenu-products">
+                                                    <h3 class="megamenu-product-title">Quick Links</h3>
+                                                    <ul class="megamenu-menu-list">
+                                                        <li><a href="shop.html">All Products</a></li>
+                                                        <li><a href="cart.html">Cart</a></li>
+                                                        <li><a href="blog.html">Tech Blog</a></li>
+                                                        <li><a href="contact.html">Contact DK</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="megamenu-single">
+                                                <a href="shop.html">
+                                                    <img src="img/mega-menu.jpg" alt="" />
+                                                </a>
+                                                <h3 class="megamenu-single-title">
+                                                    BUILD YOUR GAMING SETUP
+                                                </h3>
+                                                <h4 class="megamenu-single-subtitle">
+                                                    PC builds, accessories and trusted repair service
+                                                </h4>
+                                                <a href="shop.html" class="megamenu-single-button btn btn-sm">Shop Now</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="menu-list-item">
+                                    <a href="blog.html" class="menu-link active">Blog
+                                    </a>
+                                </li>
+                                <li class="menu-list-item">
+                                    <a href="contact.html" class="menu-link">Contact</a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <i class="bi-x-circle" id="close-sidebar"></i>
+                    </div>
+                    <div class="header-right">
+                        <div class="header-right-links">
+                            <a href="account.html">
+                                <i class="bi bi-person"></i>
+                            </a>
+                            <button class="search-button">
+                                <i class="bi bi-search"></i>
+                            </button>
+                            <a href="#">
+                                <i class="bi bi-heart"></i>
+                            </a>
+                            <div class="header-cart">
+                                <a href="cart.html" class="header-cart-link">
+                                    <i class="bi bi-bag"></i>
+                                    <span class="header-cart-count">0</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ! header end -->
+
+    <!-- ! modal search start -->
+    <div class="modal-search">
+        <div class="modal-wrapper">
+            <h3 class="modal-title">Search for products</h3>
+            <p class="modal-text">
+                Start typing to see products you are looking for.
+            </p>
+            <div class="search">
+                <input type="text" placeholder="Search a product" />
+                <button><i class="bi bi-search"></i></button>
+            </div>
+            <div class="search-result">
+                <div class="search-heading">
+                    <h3>RESULT FROM PRODUCT</h3>
+                </div>
+                <div class="results">
+                    <a href="#" class="result-item">
+                        <img src="img/products/product1/1.png" class="search-thumb" alt="" />
+                        <div class="search-info">
+                            <h4>RGB Gaming Headset</h4>
+                            <span class="search-sku">DK Gaming Gear</span>
+                            <span class="search-price">$108.00</span>
+                        </div>
+                    </a>
+                    <a href="#" class="result-item">
+                        <img src="img/products/product2/1.png" class="search-thumb" alt="" />
+                        <div class="search-info">
+                            <h4>RGB Gaming Headset</h4>
+                            <span class="search-sku">DK Gaming Gear</span>
+                            <span class="search-price">$108.00</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <i class="bi bi-x-circle" id="close-modal-search"></i>
+        </div>
+    </div>
+    <!-- ! modal search end -->
+
+    <!-- ! single blog start -->
+    <section class="single-blog">
+        <div class="container">
+            <article>
+                <figure>
+                    <a href="#">
+                        <img src="img/blogs/blog1.jpg" alt="">
+                    </a>
+                </figure>
+                <div class="blog-wrapper">
+                    <div class="blog-meta">
+                        <div class="blog-category">
+                            <a href="#">DK TECH GUIDE</a>
+                        </div>
+                        <div class="blog-date">
+                            <a href="#">June 25, 2026</a>
+                        </div>
+                        <div class="blog-tags">
+                            <a href="#">gaming</a>,
+                            <a href="#">repair</a>,
+                            <a href="#">upgrades</a>
+                        </div>
+                    </div>
+                    <h1 class="blog-title">
+                        Gaming PC Running Slow? DK Upgrade And Repair Guide
+                    </h1>
+                    <div class="blog-content">
+                        <p>
+                            Many customers visit DK Computer and Gaming Zone because their PC feels slow, games lag, Windows takes too long to start, or the system heats up during gaming. The best fix depends on the real cause, so this guide explains what to check before spending money.
+                        </p>
+                        <h2>1. When an SSD upgrade is the best fix</h2>
+                        <p>
+                            If Windows boots slowly, apps open late, or the laptop feels old even after cleaning, an SSD upgrade is usually the first smart step. It makes startup, game loading and daily browsing much faster.
+                        </p>
+                        <h2>2. When RAM matters</h2>
+                        <p>
+                            If games stutter while Discord, browser tabs or recording apps are open, the system may need more RAM. For most gaming setups, 16GB is a better target than 8GB.
+                        </p>
+                        <h2>3. When a graphics card upgrade helps</h2>
+                        <p>
+                            If the PC starts quickly but FPS is low in games, the GPU may be the limit. Before upgrading, check the power supply, case space and monitor resolution so the card matches the build.
+                        </p>
+                        <h2>4. When repair or cleaning is needed</h2>
+                        <p>
+                            Heating, sudden shutdowns, fan noise and random restarts often need service before upgrades. Dust cleanup, thermal paste and cable checks can protect the system and improve performance.
+                        </p>
+                        <blockquote>
+                            <p>
+                                DK tip: Do not upgrade blindly. First identify whether the issue is storage, RAM, graphics, heat, power, or software.
+                            </p>
+                        </blockquote>
+                    </div>
+                </div>
+            </article>
+            <section class="blog-qa">
+                <h2>Customer Questions And Answers</h2>
+                <div class="qa-grid">
+                    <article class="qa-card">
+                        <h3>Question: My PC gives low FPS. What should I check first?</h3>
+                        <p><strong>Answer:</strong> Check GPU usage, RAM, storage type, temperature and game settings. If temperatures are high, service comes before upgrade.</p>
+                    </article>
+                    <article class="qa-card">
+                        <h3>Question: Is an SSD better than adding more RAM?</h3>
+                        <p><strong>Answer:</strong> For slow boot and loading, SSD is usually better. For multitasking and gaming stutter, RAM can help more.</p>
+                    </article>
+                    <article class="qa-card">
+                        <h3>Question: Which accessories are worth buying first?</h3>
+                        <p><strong>Answer:</strong> Start with a comfortable headset or mic, a reliable keyboard, and a mouse that fits your hand. RGB is nice, but comfort matters first.</p>
+                    </article>
+                    <article class="qa-card">
+                        <h3>Question: Can DK help choose compatible parts?</h3>
+                        <p><strong>Answer:</strong> Yes. Bring your current PC specs or visit the store so the upgrade matches your motherboard, power supply and case.</p>
+                    </article>
+                </div>
+            </section>
+        </div>
+    </section>
+    <!-- ! single blog end -->
+
+    <!-- ! policy start -->
+    <section class="policy">
+        <div class="container">
+            <ul class="policy-list">
+                <li class="policy-item">
+                    <i class="bi bi-truck"></i>
+                    <div class="policy-texts">
+                        <strong>FREE DELIVERY</strong>
+                        <span>From $59.89</span>
+                    </div>
+                </li>
+                <li class="policy-item">
+                    <i class="bi bi-headset"></i>
+                    <div class="policy-texts">
+                        <strong>SUPPORT 24/7</strong>
+                        <span>Online 24 hours</span>
+                    </div>
+                </li>
+                <li class="policy-item">
+                    <i class="bi bi-arrow-clockwise"></i>
+                    <div class="policy-texts">
+                        <strong>30 DAYS RETURN</strong>
+                        <span>Simply return it within 30 days</span>
+                    </div>
+                </li>
+                <li class="policy-item">
+                    <i class="bi bi-credit-card"></i>
+                    <div class="policy-texts">
+                        <strong>PAYMENT METHOD</strong>
+                        <span>Secure Payment</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <!-- ! policy end -->
+
+    <!-- ! footer start -->
+    <section class="footer">
+        <div class="subscribe-contact-row">
+            <div class="container">
+                <div class="subscribe-contact-wrapper">
+                    <div class="subscribe-wrapper">
+                        <div class="footer-subscribe">
+                            <div class="footer-subscribe-top">
+                                <h3 class="subscribe-title">
+                                    Get updates on new gaming gear, PC parts and repair offers.
+                                </h3>
+                                <p class="subscribe-desc">
+                                    Ask about available discounts on your next PC build or accessory purchase.
+                                </p>
+                            </div>
+                            <div class="footer-subscribe-bottom">
+                                <form>
+                                    <input type="text" placeholder="enter your email addres" />
+                                    <button class="btn">Subscribe</button>
+                                </form>
+                                <p class="privacy-text">
+                                    By subscribing you agree to our
+                                    <a href="#">Terms & Conditions and Privacy & Cookies Policy.</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-wrapper">
+                        <div class="footer-contact-top">
+                            <h3 class="contact-title">Need help? <br>
+                                +92 345 5222815
+                            </h3>
+                            <p class="contact-desc">Open daily from 12 PM. Ashura hours may vary.
+                            </p>
+                        </div>
+                        <div class="footer-contact-bottom">
+                            <div class="download-app">
+                                <a href="#">
+                                    <img src="img/footer/app-store.png" alt="">
+                                </a>
+                                <a href="#">
+                                    <img src="img/footer/google-play.png" alt="">
+                                </a>
+                            </div>
+                            <p class="privacy-text">
+                                <strong>Local Store:</strong> Visit us for gaming accessories, computer parts and repair services.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="widgets-row">
+            <div class="container">
+                <div class="footer-widgets">
+                    <div class="brand-info">
+                        <div class="footer-logo">
+                            <a href="/" class="logo">DK Gaming Zone</a>
+                        </div>
+                        <div class="footer-desc">
+                            DK Computer and Gaming Zone is a Rawalpindi computer store for gaming PCs, accessories, parts, upgrades and repair services.
+                        </div>
+                        <div class="footer-contact">
+                            <p>
+                                <a href="tel:+923455222815">+92 345 5222815</a> -
+                                <a href="mailto:dkcomputerandgamingzone@gmail.com">dkcomputerandgamingzone@gmail.com</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="widget-nav-menu">
+                        <h4>Information</h4>
+                        <ul class="menu-list">
+                            <li>
+                                <a href="#">About Us</a>
+                            </li>
+                            <li>
+                                <a href="#">Privacy Policy</a>
+                            </li>
+                            <li>
+                                <a href="#">Returns Policy</a>
+                            </li>
+                            <li>
+                                <a href="#">Shipping Policy</a>
+                            </li>
+                            <li>
+                                <a href="#">Repair Services</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="widget-nav-menu">
+                        <h4>Account</h4>
+                        <ul class="menu-list">
+                            <li>
+                                <a href="#">My Account</a>
+                            </li>
+                            <li>
+                                <a href="#">My Orders</a>
+                            </li>
+                            <li>
+                                <a href="#">My Wishlist</a>
+                            </li>
+                            <li>
+                                <a href="#">Account Details</a>
+                            </li>
+                            <li>
+                                <a href="#">Track Orders</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="widget-nav-menu">
+                        <h4>Shop</h4>
+                        <ul class="menu-list">
+                            <li>
+                                <a href="#">PC Builds</a>
+                            </li>
+                            <li>
+                                <a href="#">Best Sellers</a>
+                            </li>
+                            <li>
+                                <a href="#">Deals</a>
+                            </li>
+                            <li>
+                                <a href="#">New Gear</a>
+                            </li>
+                            <li>
+                                <a href="#">Sale Items</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="widget-nav-menu">
+                        <h4>Categories</h4>
+                        <ul class="menu-list">
+                            <li>
+                                <a href="#">Gaming PCs</a>
+                            </li>
+                            <li>
+                                <a href="#">Laptops</a>
+                            </li>
+                            <li>
+                                <a href="#">Accessories</a>
+                            </li>
+                            <li>
+                                <a href="#">PC Components</a>
+                            </li>
+                            <li>
+                                <a href="#">Repair Services</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright-row">
+            <div class="copyright-row">
+                <div class="container">
+                    <div class="footer-copyright">
+                        <div class="site-copyright">
+                            <p>
+                                Copyright 2026 © DK Computer and Gaming Zone. All rights reserved.
+                            </p>
+                        </div>
+                        <a href="#">
+                            <img src="img/footer/cards.png" alt="">
+                        </a>
+                        <div class="footer-menu">
+                            <ul class="footer-menu-list">
+                                <li class="list-item">
+                                    <a href="#">Privacy Policy</a>
+                                </li>
+                                <li class="list-item">
+                                    <a href="#">Terms and Conditions</a>
+                                </li>
+                                <li class="list-item">
+                                    <a href="#">Returns Policy</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ! footer end -->
+  <script src="js/main.js" type="module"></script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+

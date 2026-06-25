@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shop — DK Gaming Zone</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<link rel="stylesheet" href="css/style.css">
+<style>
+.active-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.active-filter-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(108,99,255,.15);border:1px solid rgba(108,99,255,.3);color:var(--primary);padding:4px 10px;border-radius:20px;font-size:12px;font-weight:600}
+.active-filter-tag button{background:none;border:none;color:var(--primary);cursor:pointer;font-size:14px;line-height:1;padding:0}
+.range-slider{-webkit-appearance:none;width:100%;height:4px;background:linear-gradient(to right,var(--primary) 0%,var(--primary) 50%,var(--border) 50%,var(--border) 100%);border-radius:2px;outline:none;cursor:pointer}
+.range-slider::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--primary);cursor:pointer;border:2px solid var(--bg)}
+.mobile-filter-toggle{display:none;width:100%;margin-bottom:12px}
+@media(max-width:900px){.shop-layout{grid-template-columns:1fr}.shop-sidebar{display:none}.shop-sidebar.open{display:block}.mobile-filter-toggle{display:flex}}
+</style>
+</head>
+<body>
+
+<div class="header-top"><div class="container"><span><i class="bi bi-telephone-fill"></i> +92 345 5222815</span><span>FREE SHIPPING on orders above Rs. 10,000</span><span><i class="bi bi-geo-alt-fill"></i> Rawalpindi, Pakistan</span></div></div>
+
+<header class="site-header">
+  <div class="header-main"><div class="container">
+    <a href="index.html" class="logo"><div class="logo-icon">🎮</div><div><div class="logo-text">DK <span>Gaming</span></div><div style="font-size:10px;color:var(--text2)">ZONE</div></div></a>
+    <div class="search-bar"><form onsubmit="handleSearch(event)"><select id="searchCategory"><option value="">All Categories</option></select><input type="text" id="searchInput" placeholder="Search products..." autocomplete="off"><button type="submit"><i class="bi bi-search"></i></button></form></div>
+    <div class="header-actions">
+      <a href="account.html" class="header-action-btn" id="headerLoginBtn"><i class="bi bi-person-circle"></i><span class="action-label">Login</span></a>
+      <a href="account.html" class="header-action-btn" id="headerUserBtn" style="display:none"><i class="bi bi-person-check-fill"></i><span class="action-label">Account</span></a>
+      <a href="account.html#wishlist" class="header-action-btn"><i class="bi bi-heart"></i><span class="action-label">Wishlist</span><span class="count wishlist-count" style="display:none">0</span></a>
+      <a href="cart.html" class="header-action-btn"><i class="bi bi-cart3"></i><span class="action-label">Cart</span><span class="count cart-count" style="display:none">0</span></a>
+    </div>
+  </div></div>
+  <nav class="site-nav"><div class="container">
+    <a href="shop.html" class="nav-link active"><i class="bi bi-grid-3x3-gap-fill"></i> All Products</a>
+    <a href="shop.html?category=core-pc-components" class="nav-link"><i class="bi bi-cpu-fill"></i> PC Parts</a>
+    <a href="shop.html?category=peripherals" class="nav-link"><i class="bi bi-keyboard"></i> Peripherals</a>
+    <a href="shop.html?category=displays" class="nav-link"><i class="bi bi-display"></i> Displays</a>
+    <a href="shop.html?category=gaming-accessories" class="nav-link"><i class="bi bi-controller"></i> Gaming</a>
+    <a href="shop.html?featured=true" class="nav-link" style="color:var(--orange)"><i class="bi bi-fire"></i> Hot Deals</a>
+    <a href="shop.html?new=true" class="nav-link" style="color:var(--accent)"><i class="bi bi-stars"></i> New In</a>
+  </div></nav>
+</header>
+
+<div class="container">
+  <!-- Breadcrumb -->
+  <div class="breadcrumb" style="padding-top:20px">
+    <a href="index.html">Home</a><i class="bi bi-chevron-right"></i>
+    <span id="breadcrumbCurrent">Shop</span>
+  </div>
+
+  <!-- Mobile filter toggle -->
+  <button class="btn btn-outline mobile-filter-toggle" onclick="toggleMobileFilter()"><i class="bi bi-funnel"></i> Filters</button>
+
+  <div class="active-filters" id="activeFilters"></div>
+
+  <div class="shop-layout">
+    <!-- SIDEBAR -->
+    <aside class="shop-sidebar" id="shopSidebar">
+      <div class="sidebar-block">
+        <div class="sidebar-title">Categories <button class="clear-btn" onclick="clearFilter('category')">Clear</button></div>
+        <div id="catFilters"><div class="skeleton" style="height:20px;margin-bottom:8px;border-radius:4px"></div><div class="skeleton" style="height:20px;margin-bottom:8px;border-radius:4px"></div><div class="skeleton" style="height:20px;border-radius:4px"></div></div>
+      </div>
+      <div class="sidebar-block" id="subCatBlock" style="display:none">
+        <div class="sidebar-title">Subcategories <button class="clear-btn" onclick="clearFilter('subcategory')">Clear</button></div>
+        <div id="subCatFilters"></div>
+      </div>
+      <div class="sidebar-block">
+        <div class="sidebar-title">Price Range (PKR) <button class="clear-btn" onclick="clearPrice()">Clear</button></div>
+        <div class="price-range">
+          <div class="price-inputs">
+            <input type="number" id="minPrice" placeholder="Min" min="0" step="100" onchange="applyFilters()">
+            <input type="number" id="maxPrice" placeholder="Max" min="0" step="100" onchange="applyFilters()">
+          </div>
+          <button class="btn btn-outline btn-sm w-100" onclick="applyFilters()"><i class="bi bi-check"></i> Apply</button>
+        </div>
+      </div>
+      <div class="sidebar-block">
+        <div class="sidebar-title">Availability</div>
+        <label class="filter-option"><input type="checkbox" id="inStockOnly" onchange="applyFilters()"><label for="inStockOnly">In Stock Only</label></label>
+        <label class="filter-option"><input type="checkbox" id="onSaleOnly" onchange="applyFilters()"><label for="onSaleOnly">On Sale</label></label>
+        <label class="filter-option"><input type="checkbox" id="featuredOnly" onchange="applyFilters()"><label for="featuredOnly">Featured</label></label>
+      </div>
+      <div class="sidebar-block">
+        <div class="sidebar-title">Brand <button class="clear-btn" onclick="clearFilter('brand')">Clear</button></div>
+        <div id="brandFilters"></div>
+      </div>
+      <button class="btn btn-primary btn-sm w-100" style="margin-top:8px" onclick="applyFilters()"><i class="bi bi-funnel-fill"></i> Apply Filters</button>
+      <button class="btn btn-outline btn-sm w-100" style="margin-top:8px" onclick="clearAllFilters()"><i class="bi bi-x-circle"></i> Clear All</button>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="shop-main">
+      <div class="shop-toolbar">
+        <div class="toolbar-left"><strong id="productCount">0</strong> Products found</div>
+        <div class="toolbar-right">
+          <select class="sort-select" id="sortSelect" onchange="applyFilters()">
+            <option value="newest">Newest First</option>
+            <option value="price_asc">Price: Low → High</option>
+            <option value="price_desc">Price: High → Low</option>
+            <option value="discount">Best Discount</option>
+            <option value="name_asc">Name A–Z</option>
+          </select>
+          <div class="view-toggle">
+            <button class="view-btn active" id="gridViewBtn" onclick="setView('grid')" title="Grid View"><i class="bi bi-grid-3x3-gap"></i></button>
+            <button class="view-btn" id="listViewBtn" onclick="setView('list')" title="List View"><i class="bi bi-list-ul"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="products-grid" id="shopGrid"></div>
+      <div id="noResults" class="no-results" style="display:none"><i class="bi bi-search"></i><h3>No products found</h3><p class="text-muted">Try adjusting your filters or search query</p><a href="shop.html" class="btn btn-primary" style="margin-top:16px">Clear Filters</a></div>
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer" style="margin-top:40px">
+  <div class="container"><div class="footer-bottom"><span>© 2025 DK Gaming Zone. All rights reserved.</span><div class="payment-icons"><span class="payment-icon">COD</span><span class="payment-icon">EasyPaisa</span><span class="payment-icon">JazzCash</span></div></div></div>
+</footer>
+
+<script src="js/api.js"></script>
+<script>
+let state = { page: 1, limit: 20, sort: 'newest', category: '', subcategory: '', brand: '', search: '', featured: '', new: '', min_price: '', max_price: '' };
+let allCategories = [], currentView = 'grid';
+
+function handleSearch(e) { e.preventDefault(); const q = document.getElementById('searchInput').value.trim(); if (q) { state.search = q; state.page = 1; loadProducts(); } }
+function toggleMobileFilter() { document.getElementById('shopSidebar').classList.toggle('open'); }
+function setView(v) { currentView = v; document.getElementById('gridViewBtn').classList.toggle('active', v==='grid'); document.getElementById('listViewBtn').classList.toggle('active', v==='list'); const g = document.getElementById('shopGrid'); g.classList.toggle('shop-grid-list', v==='list'); }
+
+// Parse URL params
+(function() {
+  const p = new URLSearchParams(location.search);
+  if (p.get('category')) state.category = p.get('category');
+  if (p.get('subcategory')) state.subcategory = p.get('subcategory');
+  if (p.get('search')) { state.search = p.get('search'); document.getElementById('searchInput').value = state.search; }
+  if (p.get('featured')) state.featured = 'true';
+  if (p.get('new')) state.new = 'true';
+  if (p.get('brand')) state.brand = p.get('brand');
+  // Update breadcrumb
+  let label = 'Shop';
+  if (state.featured) label = '🔥 Hot Deals';
+  else if (state.new) label = '✨ New Arrivals';
+  else if (state.search) label = `Search: "${state.search}"`;
+  document.getElementById('breadcrumbCurrent').textContent = label;
+})();
+
+async function loadCategories() {
+  try {
+    const res = await api.get('/categories');
+    allCategories = res.categories || [];
+    const catEl = document.getElementById('catFilters');
+    catEl.innerHTML = [{ name: 'All Categories', slug: '', product_count: '' }, ...allCategories].map(c => `
+      <label class="filter-option">
+        <input type="radio" name="catRadio" value="${c.slug}" ${state.category === c.slug ? 'checked' : ''} onchange="selectCategory('${c.slug}')">
+        <label>${c.name}</label>
+        ${c.product_count ? `<span class="count">(${c.product_count})</span>` : ''}
+      </label>`).join('');
+    // Brands
+    const brands = [...new Set(allCategories.flatMap(c => (c.subcategories||[]).map(s => s.name)))].slice(0,10);
+    const popularBrands = ['Intel','AMD','NVIDIA','Corsair','Logitech','HyperX','MSI','ASUS','SteelSeries','Razer','Samsung','Redragon'];
+    document.getElementById('brandFilters').innerHTML = popularBrands.map(b=>`<label class="filter-option"><input type="checkbox" value="${b}" onchange="selectBrand(event)"${state.brand===b?' checked':''}><label>${b}</label></label>`).join('');
+    // Load subcategories if category selected
+    if (state.category) loadSubcategories(state.category);
+    // Update search category
+    const sel = document.getElementById('searchCategory');
+    allCategories.forEach(c => { const o = document.createElement('option'); o.value=c.slug; o.textContent=c.name; if(c.slug===state.category) o.selected=true; sel.appendChild(o); });
+  } catch(e) { console.error(e); }
+}
+
+function selectCategory(slug) {
+  state.category = slug; state.subcategory = ''; state.page = 1;
+  if (slug) loadSubcategories(slug); else { document.getElementById('subCatBlock').style.display='none'; }
+  applyFilters();
+}
+
+function loadSubcategories(catSlug) {
+  const cat = allCategories.find(c => c.slug === catSlug);
+  const subs = cat?.subcategories || [];
+  if (!subs.length) { document.getElementById('subCatBlock').style.display='none'; return; }
+  document.getElementById('subCatBlock').style.display='block';
+  document.getElementById('subCatFilters').innerHTML = [{ name: 'All', slug: '' }, ...subs].map(s => `<label class="filter-option"><input type="radio" name="subRadio" value="${s.slug}" ${state.subcategory===s.slug?'checked':''} onchange="selectSubcat('${s.slug}')"><label>${s.name}</label></label>`).join('');
+}
+
+function selectSubcat(slug) { state.subcategory = slug; state.page = 1; applyFilters(); }
+function selectBrand(e) { state.brand = e.target.checked ? e.target.value : ''; state.page = 1; applyFilters(); }
+function clearFilter(type) { state[type] = ''; state.page = 1; if (type==='category') { state.subcategory=''; document.getElementById('subCatBlock').style.display='none'; } applyFilters(); loadCategories(); }
+function clearPrice() { state.min_price=''; state.max_price=''; document.getElementById('minPrice').value=''; document.getElementById('maxPrice').value=''; applyFilters(); }
+function clearAllFilters() { state = { ...state, category:'', subcategory:'', brand:'', search:'', featured:'', new:'', min_price:'', max_price:'', page:1 }; document.getElementById('searchInput').value=''; document.getElementById('minPrice').value=''; document.getElementById('maxPrice').value=''; loadCategories(); applyFilters(); }
+
+function applyFilters() {
+  state.sort = document.getElementById('sortSelect').value;
+  state.min_price = document.getElementById('minPrice').value;
+  state.max_price = document.getElementById('maxPrice').value;
+  state.page = 1;
+  loadProducts();
+  updateActiveFilters();
+}
+
+function updateActiveFilters() {
+  const tags = [];
+  if (state.search) tags.push({ label: `Search: "${state.search}"`, key: 'search' });
+  if (state.category) { const cat = allCategories.find(c=>c.slug===state.category); tags.push({ label: cat?.name||state.category, key: 'category' }); }
+  if (state.subcategory) tags.push({ label: state.subcategory, key: 'subcategory' });
+  if (state.brand) tags.push({ label: `Brand: ${state.brand}`, key: 'brand' });
+  if (state.featured) tags.push({ label: 'Featured', key: 'featured' });
+  if (state.new) tags.push({ label: 'New Arrivals', key: 'new' });
+  if (state.min_price) tags.push({ label: `Min: Rs.${Number(state.min_price).toLocaleString()}`, key: 'min_price' });
+  if (state.max_price) tags.push({ label: `Max: Rs.${Number(state.max_price).toLocaleString()}`, key: 'max_price' });
+  document.getElementById('activeFilters').innerHTML = tags.map(t => `<span class="active-filter-tag">${t.label}<button onclick="clearFilter('${t.key}')">×</button></span>`).join('');
+}
+
+let loadTimeout;
+async function loadProducts() {
+  clearTimeout(loadTimeout);
+  loadTimeout = setTimeout(async () => {
+    const grid = document.getElementById('shopGrid');
+    grid.innerHTML = Array(8).fill('<div class="skeleton" style="height:320px;border-radius:10px"></div>').join('');
+    document.getElementById('noResults').style.display = 'none';
+    try {
+      let params = `sort=${state.sort}&page=${state.page}&limit=${state.limit}`;
+      if (state.category) params += `&category=${state.category}`;
+      if (state.subcategory) params += `&subcategory=${state.subcategory}`;
+      if (state.brand) params += `&brand=${encodeURIComponent(state.brand)}`;
+      if (state.search) params += `&search=${encodeURIComponent(state.search)}`;
+      if (state.featured) params += `&featured=true`;
+      if (state.new) params += `&new=true`;
+      if (state.min_price) params += `&min_price=${state.min_price}`;
+      if (state.max_price) params += `&max_price=${state.max_price}`;
+      const res = await api.get(`/products?${params}`);
+      const products = res.products || [];
+      document.getElementById('productCount').textContent = res.total || 0;
+      if (!products.length) { grid.innerHTML = ''; document.getElementById('noResults').style.display = 'block'; }
+      else { grid.innerHTML = products.map(productCardHTML).join(''); bindProductCards(grid); }
+      renderPagination(res.page, res.pages);
+    } catch(e) { grid.innerHTML = `<div class="no-results"><i class="bi bi-exclamation-triangle"></i><p>Failed to load products</p></div>`; }
+  }, 200);
+}
+
+function renderPagination(cur, total) {
+  if (total <= 1) { document.getElementById('pagination').innerHTML = ''; return; }
+  let html = `<button class="page-btn ${cur<=1?'disabled':''}" onclick="changePage(${cur-1})" ${cur<=1?'disabled':''}><i class="bi bi-chevron-left"></i></button>`;
+  for (let i = Math.max(1, cur-2); i <= Math.min(total, cur+2); i++) {
+    html += `<button class="page-btn ${i===cur?'active':''}" onclick="changePage(${i})">${i}</button>`;
+  }
+  html += `<button class="page-btn ${cur>=total?'disabled':''}" onclick="changePage(${cur+1})" ${cur>=total?'disabled':''}><i class="bi bi-chevron-right"></i></button>`;
+  document.getElementById('pagination').innerHTML = html;
+}
+
+function changePage(n) { state.page = n; loadProducts(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+loadCategories();
+loadProducts();
+updateActiveFilters();
+</script>
+</body>
+</html>

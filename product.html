@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Product — DK Gaming Zone</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<link rel="stylesheet" href="css/style.css">
+<style>
+.share-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:none;transition:var(--trans)}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+</style>
+</head>
+<body>
+
+<div class="header-top"><div class="container"><span><i class="bi bi-telephone-fill"></i> +92 345 5222815</span><span>FREE SHIPPING on orders above Rs. 10,000</span><span><i class="bi bi-geo-alt-fill"></i> Rawalpindi</span></div></div>
+
+<header class="site-header">
+  <div class="header-main"><div class="container">
+    <a href="index.html" class="logo"><div class="logo-icon">🎮</div><div><div class="logo-text">DK <span>Gaming</span></div><div style="font-size:10px;color:var(--text2)">ZONE</div></div></a>
+    <div class="search-bar"><form onsubmit="handleSearch(event)"><select><option>All Categories</option></select><input type="text" id="searchInput" placeholder="Search products..."><button type="submit"><i class="bi bi-search"></i></button></form></div>
+    <div class="header-actions">
+      <a href="account.html" class="header-action-btn" id="headerLoginBtn"><i class="bi bi-person-circle"></i><span class="action-label">Login</span></a>
+      <a href="account.html" class="header-action-btn" id="headerUserBtn" style="display:none"><i class="bi bi-person-check-fill"></i><span class="action-label">Account</span></a>
+      <a href="account.html#wishlist" class="header-action-btn"><i class="bi bi-heart"></i><span class="action-label">Wishlist</span><span class="count wishlist-count" style="display:none">0</span></a>
+      <a href="cart.html" class="header-action-btn"><i class="bi bi-cart3"></i><span class="action-label">Cart</span><span class="count cart-count" style="display:none">0</span></a>
+    </div>
+  </div></div>
+  <nav class="site-nav"><div class="container">
+    <a href="index.html" class="nav-link"><i class="bi bi-house-fill"></i> Home</a>
+    <a href="shop.html" class="nav-link active"><i class="bi bi-grid-3x3-gap-fill"></i> Shop</a>
+    <a href="shop.html?featured=true" class="nav-link" style="color:var(--orange)"><i class="bi bi-fire"></i> Deals</a>
+    <a href="cart.html" class="nav-link"><i class="bi bi-cart3"></i> Cart</a>
+  </div></nav>
+</header>
+
+<div class="container">
+  <div class="breadcrumb" style="padding-top:20px">
+    <a href="index.html">Home</a><i class="bi bi-chevron-right"></i>
+    <a href="shop.html">Shop</a><i class="bi bi-chevron-right"></i>
+    <span id="breadcrumbCat">Category</span><i class="bi bi-chevron-right"></i>
+    <span id="breadcrumbName">Product</span>
+  </div>
+</div>
+
+<div class="product-page">
+  <div class="container">
+    <div id="productLoader" class="page-loader"><div class="spinner"></div><span>Loading product...</span></div>
+    <div id="productContent" style="display:none">
+      <div class="product-layout">
+        <!-- Gallery -->
+        <div class="product-gallery">
+          <div class="main-img"><img id="mainImg" src="" alt="" onerror="this.src='img/no-image.png'"></div>
+          <div class="thumbs" id="thumbs"></div>
+        </div>
+        <!-- Info -->
+        <div class="product-info">
+          <div class="product-brand" id="prodBrand"></div>
+          <h1 id="prodName">Loading...</h1>
+          <div class="product-meta">
+            <span>SKU: <strong id="prodSku">N/A</strong></span>
+            <span>Category: <strong><a href="#" id="prodCatLink" style="color:var(--accent)"></a></strong></span>
+            <span>Brand: <strong id="prodBrandMeta"></strong></span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+            <div class="stars" id="prodStars"></div>
+            <span class="text-muted" id="prodRating">0 reviews</span>
+          </div>
+          <div class="product-price-block">
+            <span class="price-new" id="prodNewPrice"></span>
+            <span class="price-old" id="prodOldPrice" style="display:none"></span>
+            <span class="price-discount" id="prodDiscount" style="display:none"></span>
+          </div>
+          <div style="margin-bottom:16px"><span class="product-stock" id="prodStock"></span></div>
+          <p style="font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:20px" id="prodShortDesc"></p>
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px">
+            <div class="qty-selector">
+              <button class="qty-btn" onclick="changeQty(-1)"><i class="bi bi-dash"></i></button>
+              <input class="qty-input" type="number" id="qtyInput" value="1" min="1" max="99">
+              <button class="qty-btn" onclick="changeQty(1)"><i class="bi bi-plus"></i></button>
+            </div>
+            <span class="text-muted" id="stockAvail" style="font-size:13px"></span>
+          </div>
+          <div class="product-cta">
+            <button class="btn btn-primary btn-lg" id="addCartBtn" onclick="doAddToCart()"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+            <button class="btn btn-outline btn-lg" id="wishlistBtn" onclick="doWishlist()"><i class="bi bi-heart"></i> Wishlist</button>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+            <button class="share-btn" style="background:rgba(0,119,181,.15);color:#0077b5" onclick="shareProduct('linkedin')"><i class="bi bi-linkedin"></i> Share</button>
+            <button class="share-btn" style="background:rgba(37,211,102,.15);color:#25d366" onclick="shareProduct('whatsapp')"><i class="bi bi-whatsapp"></i> WhatsApp</button>
+            <button class="share-btn" style="background:rgba(108,99,255,.15);color:var(--primary)" onclick="copyLink()"><i class="bi bi-link-45deg"></i> Copy Link</button>
+          </div>
+          <div class="product-features">
+            <div class="feature-item"><i class="bi bi-truck-front"></i> Free shipping above Rs. 10,000</div>
+            <div class="feature-item"><i class="bi bi-shield-check"></i> 100% Authentic Product</div>
+            <div class="feature-item"><i class="bi bi-arrow-repeat"></i> 7-day return policy</div>
+            <div class="feature-item"><i class="bi bi-headset"></i> Expert support</div>
+          </div>
+          <div style="margin-top:16px;padding:12px 16px;background:var(--card2);border-radius:var(--radius-sm);font-size:13px;color:var(--text2)">
+            <i class="bi bi-whatsapp" style="color:#25d366"></i> Need help? <a href="https://wa.me/923455222815" target="_blank" style="color:var(--accent);font-weight:600">Chat on WhatsApp</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="product-tabs" style="margin-top:48px">
+        <div class="tabs-nav">
+          <button class="tab-btn active" onclick="switchTab('description')">Description</button>
+          <button class="tab-btn" onclick="switchTab('specs')">Specifications</button>
+          <button class="tab-btn" onclick="switchTab('reviews')">Reviews (<span id="revCount">0</span>)</button>
+          <button class="tab-btn" onclick="switchTab('shipping')">Shipping & Payment</button>
+        </div>
+        <div class="tab-pane active" id="tab-description">
+          <div style="font-size:14px;line-height:1.8;color:var(--text2)" id="prodDesc">No description available.</div>
+        </div>
+        <div class="tab-pane" id="tab-specs">
+          <table class="specs-table" id="specsTable"><tbody></tbody></table>
+          <p class="text-muted" id="noSpecs" style="display:none">No specifications available.</p>
+        </div>
+        <div class="tab-pane" id="tab-reviews">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start">
+            <div>
+              <h3 style="margin-bottom:20px;font-size:16px">Customer Reviews</h3>
+              <div id="reviewsList"><p class="text-muted">No reviews yet. Be the first!</p></div>
+            </div>
+            <div style="background:var(--card2);border-radius:var(--radius);padding:20px">
+              <h3 style="margin-bottom:16px;font-size:16px">Write a Review</h3>
+              <form id="reviewForm" onsubmit="submitReview(event)">
+                <div class="form-group">
+                  <label class="form-label">Your Name</label>
+                  <input class="form-control" id="revName" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Rating</label>
+                  <div class="rating-input">
+                    <input type="radio" name="rating" id="s5" value="5"><label for="s5">★</label>
+                    <input type="radio" name="rating" id="s4" value="4"><label for="s4">★</label>
+                    <input type="radio" name="rating" id="s3" value="3"><label for="s3">★</label>
+                    <input type="radio" name="rating" id="s2" value="2"><label for="s2">★</label>
+                    <input type="radio" name="rating" id="s1" value="1"><label for="s1">★</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Title</label>
+                  <input class="form-control" id="revTitle" placeholder="Summarize your review">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Review</label>
+                  <textarea class="form-control" id="revBody" placeholder="Share your experience..." rows="4"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-wide"><i class="bi bi-send"></i> Submit Review</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="tab-shipping">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+            <div class="card"><div class="card-body"><h4 style="margin-bottom:12px;color:var(--accent)"><i class="bi bi-truck"></i> Shipping</h4><div style="font-size:14px;color:var(--text2);line-height:1.8"><p>• <strong>Free Shipping</strong> on orders above Rs. 10,000</p><p>• Rs. 250 shipping within Rawalpindi/Islamabad</p><p>• Rs. 350 for other cities</p><p>• Delivery: 1-3 business days</p></div></div></div>
+            <div class="card"><div class="card-body"><h4 style="margin-bottom:12px;color:var(--accent)"><i class="bi bi-credit-card"></i> Payment</h4><div style="font-size:14px;color:var(--text2);line-height:1.8"><p>• <strong>Cash on Delivery (COD)</strong></p><p>• EasyPaisa mobile payment</p><p>• JazzCash mobile payment</p><p>• Bank Transfer (Meezan Bank)</p></div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Related Products -->
+<section class="section" style="background:var(--bg2);margin-top:40px">
+  <div class="container">
+    <div class="section-header"><div><h2 class="section-title">Related <span>Products</span></h2><div class="section-divider"></div></div></div>
+    <div class="related-grid" id="relatedGrid"></div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container"><div class="footer-bottom"><span>© 2025 DK Gaming Zone. All rights reserved.</span><div class="payment-icons"><span class="payment-icon">COD</span><span class="payment-icon">EasyPaisa</span><span class="payment-icon">JazzCash</span></div></div></div>
+</footer>
+
+<script src="js/api.js"></script>
+<script>
+let productData = null;
+const pid = new URLSearchParams(location.search).get('id') || new URLSearchParams(location.search).get('slug');
+
+function handleSearch(e) { e.preventDefault(); const q = document.getElementById('searchInput').value.trim(); if(q) location.href=`shop.html?search=${encodeURIComponent(q)}`; }
+
+function switchTab(name) {
+  document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', b.getAttribute('onclick').includes(name)));
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.toggle('active', p.id === 'tab-'+name));
+}
+
+function changeQty(d) { const inp = document.getElementById('qtyInput'); const max = productData?.stock || 99; inp.value = Math.max(1, Math.min(max, Number(inp.value) + d)); }
+
+async function doAddToCart() {
+  const btn = document.getElementById('addCartBtn');
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Adding...';
+  try {
+    await addToCart(productData.id, Number(document.getElementById('qtyInput').value));
+    btn.innerHTML = '<i class="bi bi-check-lg"></i> Added to Cart!';
+    setTimeout(() => { btn.innerHTML = '<i class="bi bi-cart-plus"></i> Add to Cart'; btn.disabled = false; }, 2000);
+  } catch { btn.innerHTML = '<i class="bi bi-cart-plus"></i> Add to Cart'; btn.disabled = false; }
+}
+
+async function doWishlist() {
+  const btn = document.getElementById('wishlistBtn');
+  const added = await toggleWishlist(productData.id);
+  if (added) { btn.innerHTML = '<i class="bi bi-heart-fill"></i> Wishlisted'; btn.style.color = 'var(--danger)'; }
+  else { btn.innerHTML = '<i class="bi bi-heart"></i> Wishlist'; btn.style.color = ''; }
+}
+
+function shareProduct(platform) {
+  const url = encodeURIComponent(location.href);
+  const text = encodeURIComponent(`Check out ${productData?.name} at DK Gaming Zone!`);
+  if (platform === 'whatsapp') window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
+  else if (platform === 'linkedin') window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
+}
+function copyLink() { navigator.clipboard?.writeText(location.href).then(() => showToast('success','Link Copied!','')).catch(() => {}); }
+
+async function loadProduct() {
+  if (!pid) { location.href = 'shop.html'; return; }
+  try {
+    const res = await api.get(`/products/${pid}`);
+    productData = res.product;
+    document.title = `${productData.name} — DK Gaming Zone`;
+    document.getElementById('productLoader').style.display = 'none';
+    document.getElementById('productContent').style.display = 'block';
+
+    // Breadcrumb
+    document.getElementById('breadcrumbCat').textContent = productData.category_name || 'Products';
+    document.getElementById('breadcrumbName').textContent = productData.name.substring(0, 40) + (productData.name.length > 40 ? '...' : '');
+
+    // Gallery
+    const imgs = productData.images || [];
+    const mainImgSrc = productData.primaryImage || productData.single_image || 'img/no-image.png';
+    document.getElementById('mainImg').src = mainImgSrc;
+    document.getElementById('mainImg').alt = productData.name;
+
+    const thumbsEl = document.getElementById('thumbs');
+    if (imgs.length) {
+      thumbsEl.innerHTML = imgs.map((img, i) => `<div class="thumb ${i===0?'active':''}" onclick="setMainImg('${img.image_url}', this)"><img src="${img.image_url}" alt="" onerror="this.src='img/no-image.png'"></div>`).join('');
+    } else {
+      thumbsEl.innerHTML = `<div class="thumb active"><img src="${mainImgSrc}" alt="${productData.name}"></div>`;
+    }
+
+    // Info
+    document.getElementById('prodBrand').textContent = productData.brand || '';
+    document.getElementById('prodName').textContent = productData.name;
+    document.getElementById('prodSku').textContent = productData.sku || 'N/A';
+    document.getElementById('prodCatLink').textContent = productData.category_name || 'General';
+    document.getElementById('prodCatLink').href = `shop.html?category=${productData.category_slug}`;
+    document.getElementById('prodBrandMeta').textContent = productData.brand || 'Generic';
+
+    // Rating
+    document.getElementById('prodStars').innerHTML = starsHTML(productData.avgRating || 0);
+    document.getElementById('prodRating').textContent = `${productData.avgRating || 'No'} rating (${productData.reviewCount || 0} reviews)`;
+    document.getElementById('revCount').textContent = productData.reviewCount || 0;
+
+    // Price
+    document.getElementById('prodNewPrice').textContent = formatPrice(productData.new_price);
+    const hasDiscount = productData.discount > 0;
+    if (hasDiscount) {
+      document.getElementById('prodOldPrice').textContent = formatPrice(productData.old_price);
+      document.getElementById('prodOldPrice').style.display = '';
+      document.getElementById('prodDiscount').textContent = `-${productData.discount}%`;
+      document.getElementById('prodDiscount').style.display = '';
+    }
+
+    // Stock
+    const stockEl = document.getElementById('prodStock');
+    const inStock = productData.stock > 0;
+    stockEl.textContent = inStock ? (productData.stock <= productData.low_stock_threshold ? `⚠️ Only ${productData.stock} left!` : '✅ In Stock') : '❌ Out of Stock';
+    stockEl.className = `product-stock ${inStock ? (productData.stock <= 5 ? 'stock-low' : 'stock-in') : 'stock-out'}`;
+    document.getElementById('stockAvail').textContent = inStock ? `${productData.stock} available` : '';
+    if (!inStock) { document.getElementById('addCartBtn').disabled = true; document.getElementById('addCartBtn').textContent = 'Out of Stock'; }
+    document.getElementById('qtyInput').max = productData.stock;
+
+    // Description
+    document.getElementById('prodShortDesc').textContent = productData.short_description || '';
+    document.getElementById('prodDesc').innerHTML = (productData.description || 'No description available.').replace(/\n/g, '<br>');
+
+    // Specs
+    const specs = productData.specs || [];
+    if (specs.length) {
+      document.getElementById('specsTable').querySelector('tbody').innerHTML = specs.map(s => `<tr><td>${s.spec_key}</td><td>${s.spec_value}</td></tr>`).join('');
+    } else { document.getElementById('noSpecs').style.display = 'block'; document.getElementById('specsTable').style.display = 'none'; }
+
+    // Reviews
+    const reviews = productData.reviews || [];
+    if (reviews.length) {
+      document.getElementById('reviewsList').innerHTML = reviews.map(r => `
+        <div class="review-item">
+          <div class="review-header"><span class="reviewer">${r.reviewer_name}</span><span class="review-date">${new Date(r.created_at).toLocaleDateString()}</span></div>
+          <div class="stars" style="margin-bottom:6px">${starsHTML(r.rating)}</div>
+          ${r.title ? `<div class="review-title">${r.title}</div>` : ''}
+          <div class="review-body">${r.body || ''}</div>
+        </div>`).join('');
+    }
+
+    // Related products
+    if (productData.category_id) {
+      try {
+        const rel = await api.get(`/products?category=${productData.category_slug}&limit=4`);
+        const related = (rel.products || []).filter(p => p.id !== productData.id).slice(0, 4);
+        document.getElementById('relatedGrid').innerHTML = related.map(productCardHTML).join('');
+        bindProductCards(document.getElementById('relatedGrid'));
+      } catch {}
+    }
+  } catch(e) {
+    document.getElementById('productLoader').innerHTML = `<div class="no-results"><i class="bi bi-exclamation-triangle"></i><h3>Product Not Found</h3><a href="shop.html" class="btn btn-primary">Back to Shop</a></div>`;
+  }
+}
+
+function setMainImg(src, el) {
+  document.getElementById('mainImg').src = src;
+  document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+async function submitReview(e) {
+  e.preventDefault();
+  const name = document.getElementById('revName').value;
+  const rating = document.querySelector('input[name="rating"]:checked')?.value;
+  if (!rating) { showToast('warn','Rating Required','Please select a star rating'); return; }
+  try {
+    await api.post(`/reviews/${productData.id}`, { reviewer_name: name, rating: Number(rating), title: document.getElementById('revTitle').value, body: document.getElementById('revBody').value });
+    showToast('success','Review Submitted!','Your review is pending approval. Thank you!');
+    document.getElementById('reviewForm').reset();
+  } catch(e) { showToast('error','Error',e.message); }
+}
+
+loadProduct();
+</script>
+</body>
+</html>
